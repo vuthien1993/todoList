@@ -4,7 +4,7 @@
 }
 .mydayBorder button {
   margin-top: 2px;
-  background: white;
+  background: #faf9f7;
   border: none;
 }
 .ipadding {
@@ -17,6 +17,7 @@
   padding: 3px;
 }
 .textGray {
+  margin-left: 20px;
   color: gray;
 }
 .inputTasks {

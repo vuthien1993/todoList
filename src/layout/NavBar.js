@@ -2,8 +2,8 @@ import React from "react";
 import "./NavBar.css";
 function NavBar() {
   return (
-    <nav className="navbarborder">
-      <div className="container-fluid navbarContent">
+    <nav>
+      <div className="container-fluid navbarContent navbarborder">
         <div className="row">
           <p className="col-md-3">
             <span className="fa-solid fa-grip" /> <span> To Do </span>

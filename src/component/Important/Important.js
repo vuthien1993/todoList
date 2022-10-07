@@ -2,13 +2,9 @@ import React from "react";
 import useInput from "../../hook/use-input";
 import "./Important.css";
 function Important() {
-  const {
-    value: enteredTasks,
-    isValid: enteredTasksIsvalid,
-    valueChangeHandler: changeHandler,
-    inputBlurHandler: blurHandler,
-    reset: resetTasksInput,
-  } = useInput((value) => value.trim() !== "");
+  const { isValid: enteredTasksIsvalid } = useInput(
+    (value) => value.trim() !== ""
+  );
   let formIsvalid = false;
   if (enteredTasksIsvalid) {
     formIsvalid = true;

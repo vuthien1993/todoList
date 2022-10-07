@@ -1,11 +1,9 @@
 .navbarborder {
   background: #0078d7;
   height: 50px;
-}
-.navbarContent {
-  margin-left: 10px;
   color: white;
 }
+
 .navbarborder span {
   padding: 15px;
   text-align: right;

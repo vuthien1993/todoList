@@ -1,12 +1,12 @@
 import { Route, Switch } from "react-router-dom";
-
+import React from "react";
 import NavBar from "./layout/NavBar";
 import MenuRow from "./layout/MenuRow";
 import MyDay from "./component/MyDay/MyDay";
-
+import "./App.css";
 function App() {
   return (
-    <div>
+    <div className="App">
       <NavBar />
 
       <main>

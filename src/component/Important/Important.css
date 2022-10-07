@@ -1,3 +1,6 @@
 .textColorImportant {
-  color: blue;
+  color: #3e69e4;
+}
+.textColorImportant button {
+  background: gray;
 }
