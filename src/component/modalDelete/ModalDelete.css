@@ -1,0 +1,14 @@
+.modalDelete button {
+  border: none;
+  margin-left: 5px;
+  width: 30%;
+  border-radius: 3px;
+}
+.btndelete {
+  background: red;
+  color: white;
+}
+
+.btnright {
+  text-align: right;
+}

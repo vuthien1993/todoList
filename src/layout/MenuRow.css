@@ -1,0 +1,13 @@
+.menuRow {
+  margin: 20px 0px 0px 40px;
+}
+.menuRow i {
+  padding: 10px;
+}
+.menuRow button {
+  border: none;
+  background: white;
+}
+.menuRow p {
+  cursor: pointer;
+}

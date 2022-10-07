@@ -1,0 +1,53 @@
+.mydayBorder {
+  background: #faf9f7;
+  padding-bottom: 100px;
+}
+.mydayBorder button {
+  margin-top: 2px;
+  background: white;
+  border: none;
+}
+.ipadding {
+  padding: 15px;
+}
+.marginTMyday {
+  margin-top: 20px;
+}
+.marginTMyday span {
+  padding: 3px;
+}
+.textGray {
+  color: gray;
+}
+.inputTasks {
+  margin-left: 20px;
+  width: 80%;
+  padding: 5px;
+  box-shadow: 0 0 1px 0 gray;
+  background-color: white;
+}
+.inputTasks input {
+  border: none;
+  width: 80%;
+}
+.inputTasks input:focus {
+  outline: 0px;
+}
+.iconMydayAdd {
+  margin-left: 20px;
+  width: 80%;
+  padding: 5px;
+  box-shadow: 0 0 1px 0 gray;
+}
+.iconMydayAdd i {
+  cursor: pointer;
+  padding: 10px;
+}
+.paddingStar {
+  text-align: right;
+}
+.textSize {
+  margin-top: -10px;
+  margin-bottom: -5px;
+  font-size: 80%;
+}
