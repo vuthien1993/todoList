@@ -53,9 +53,19 @@ function MyDay() {
     setId(ele.id);
     setTasksTodo(ele.tasks);
   };
+  const hiddenModal = () => {
+    setShow(false);
+  };
   return (
     <React.Fragment>
-      {show && <ModalDelete onShow={showHandler} id={id} tasks={tasksTodo} />}
+      {show && (
+        <ModalDelete
+          onHidden={hiddenModal}
+          onShow={showHandler}
+          id={id}
+          tasks={tasksTodo}
+        />
+      )}
       <div className="row mydayBorder">
         <div className="col-md-8 marginTMyday">
           <h5>
