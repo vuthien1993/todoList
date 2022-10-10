@@ -9,6 +9,7 @@ function MyDay() {
   const [show, setShow] = useState(false);
   // lay data tu localstorage
   const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
+  console.log(tasksArr);
   //khai bao mang chua data
   const [tasks, setTasks] = useState(tasksArr);
   //khai bao lay gia tri thoi gian thuc
@@ -42,6 +43,7 @@ function MyDay() {
       tasks: enteredTasks,
     };
     setTasks((pre) => {
+      console.log(pre);
       const newTasks = [...pre, tasksItem];
       localStorage.setItem("tasksArr", JSON.stringify(newTasks));
       return newTasks;
@@ -49,8 +51,16 @@ function MyDay() {
     console.log(tasks);
     resetTasksInput();
   };
+  const deleteHandler = () => {
+    const index = tasksArr.findIndex((ele) => id === ele.id);
+    tasksArr.splice(index, 1);
+    //set lại state vi moi state chỉ khởi tạo giá trị ban đầu 1 lần duy nhất
+    setTasks(tasksArr);
+    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    setShow(false);
+  };
   const showHandler = (ele) => {
-    setShow((pre) => !pre);
+    setShow(true);
     setId(ele.id);
     setTasksTodo(ele.tasks);
   };
@@ -67,7 +77,7 @@ function MyDay() {
       {show && (
         <ModalDelete
           onHidden={hiddenModal}
-          onShow={showHandler}
+          onDelete={deleteHandler}
           tasksArr={tasksArr}
           id={id}
           tasks={tasksTodo}
