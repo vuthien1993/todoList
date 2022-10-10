@@ -36,15 +36,59 @@
   background: white;
 }
 .showSeting {
-  right: 0;
+  right: 0px;
   width: 360px;
   overflow-x: hidden;
-  height: 443px;
+  height: calc(100vh - 50px);
   overflow-y: scroll;
   background: #faf9f7;
   z-index: 99;
   position: fixed;
   box-shadow: 0 0 3px 0 gray;
+}
+.spanSetting {
+  cursor: pointer;
+  padding-left: 230px;
+}
+.borderQuestion {
+  box-shadow: 0 0 3px 0 gray;
+  position: fixed;
+  z-index: 99;
+  right: 0px;
+  width: 360px;
+  background: #faf9f7;
+  height: calc(100vh - 50px);
+}
+.borderBullhorn {
+  box-shadow: 0 0 3px 0 gray;
+  position: fixed;
+  z-index: 99;
+  right: 0px;
+  width: 360px;
+  background: #faf9f7;
+  height: calc(100vh - 50px);
+}
+.borderBullhorn span {
+  cursor: pointer;
+  padding-left: 200px;
+}
+.borderQuestion span {
+  cursor: pointer;
+  padding-left: 280px;
+}
+.borderQuestion a {
+  text-decoration: none;
+}
+.marginSync {
+  margin-top: 10px;
+}
+.marginSync button {
+  width: 53.16px;
+  color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  background: blue;
 }
 .setting {
   margin-top: 20px;

@@ -5,6 +5,7 @@ import ModalDelete from "../modalDelete/ModalDelete";
 import "./MyDay.css";
 
 function MyDay() {
+  const [showStar, setShowStar] = useState(true);
   const [show, setShow] = useState(false);
   // lay data tu localstorage
   const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
@@ -56,6 +57,11 @@ function MyDay() {
   const hiddenModal = () => {
     setShow(false);
   };
+  //xử lý riêng từng sự kiện trong div tổng
+  const testHandler = (e) => {
+    setShowStar((pre) => !pre);
+    e.stopPropagation();
+  };
   return (
     <React.Fragment>
       {show && (
@@ -70,22 +76,26 @@ function MyDay() {
         <div className="col-md-8 marginTMyday">
           <h5>
             <i className="fa-regular fa-sun ipadding"></i>My Day{" "}
-            <button>...</button>
+            <span>...</span>
           </h5>
           <p className="textGray">{d}</p>
         </div>
         <div className="col-md-4 marginTMyday">
-          <p>
+          <div className="textGray">
             <span>
-              <i className="fa fa-arrow-down" aria-hidden="true"></i>
-              <i className="fa fa-arrow-up" aria-hidden="true"></i>
+              <span>
+                <i className="fa fa-arrow-down" aria-hidden="true"></i>
+                <i className="fa fa-arrow-up" aria-hidden="true"></i>
+              </span>
+              <span>Sort</span>
             </span>
-            <span>Sort</span>
-            <span className="ipadding">
-              <span className="fa-solid fa-neuter" />
-              Suggestions
+            <span className="spanHover">
+              <span className="ipadding">
+                <span className="fa-solid fa-neuter" />
+                Suggestions
+              </span>
             </span>
-          </p>
+          </div>
         </div>
         <form onSubmit={submitHandler}>
           <div className="inputTasks">
@@ -107,26 +117,29 @@ function MyDay() {
               <button disabled={!formIsvalid}>Add</button>
             </div>
           </div>
-          {tasksArr.map((ele) => {
-            return (
-              <div
-                key={ele.id}
-                className="iconMydayAdd row"
-                onClick={() => showHandler(ele)}
-              >
-                <div className="col-md-1">
-                  <i className="fa-regular fa-circle"></i>
+          <div className="borderTasksArr">
+            {tasksArr.map((ele) => {
+              return (
+                <div
+                  key={ele.id}
+                  className="tasksArrList row"
+                  onClick={() => showHandler(ele)}
+                >
+                  <div className="col-md-1">
+                    <i className="fa-regular fa-circle"></i>
+                  </div>
+                  <div className="col-md-10">
+                    <p> {ele.tasks}</p>
+                    <p className="textSize">Tasks</p>
+                  </div>
+                  <div className="col-md-1" onClick={testHandler}>
+                    {showStar && <i className="fa-regular fa-star"></i>}
+                    {!showStar && <i class="fa-solid fa-star"></i>}
+                  </div>
                 </div>
-                <div className="col-md-10">
-                  <p> {ele.tasks}</p>
-                  <p className="textSize">Tasks</p>
-                </div>
-                <div className="col-md-1">
-                  <i className="fa-regular fa-star"></i>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </form>
       </div>
     </React.Fragment>

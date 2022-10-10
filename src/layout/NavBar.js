@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import "./NavBar.css";
 function NavBar() {
-  const [show, setShow] = useState(false);
+  const [showSeting, setShowSeting] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [showBullhorn, setShowBullhorn] = useState(false);
   const [showOk, setShowOk] = useState(false);
   const [showOff, setShowOff] = useState(true);
   const showOnOff = () => {
     setShowOk((pre) => !pre);
     setShowOff((pre) => !pre);
   };
-  const showSeting = () => {
-    setShow((pre) => !pre);
+  const showSetingHandler = () => {
+    setShowSeting((pre) => !pre);
+    setShowQuestion(false);
+    setShowBullhorn(false);
   };
-
+  const showQuestionHandler = () => {
+    setShowQuestion((pre) => !pre);
+    setShowSeting(false);
+    setShowBullhorn(false);
+  };
+  const showBullhornHandler = () => {
+    setShowBullhorn((pre) => !pre);
+    setShowQuestion(false);
+    setShowSeting(false);
+  };
   return (
     <nav>
       <div className="container-fluid navbarContent navbarborder">
@@ -27,19 +40,24 @@ function NavBar() {
           </div>
 
           <div className="col-md-2">
-            <span className="fa-solid fa-gear" onClick={showSeting} />
-            <span className="fa-solid fa-question" />
-            <span className="fas fa-bullhorn" />
+            <span className="fa-solid fa-gear" onClick={showSetingHandler} />
+            <span
+              className="fa-solid fa-question"
+              onClick={showQuestionHandler}
+            />
+            <span className="fas fa-bullhorn" onClick={showBullhornHandler} />
           </div>
         </div>
       </div>
-      {show && (
+      {showSeting && (
         <div className="showSeting">
           <div className="row setting">
-            <h5 className="col-md-10">Setting</h5>
-            <p className="col-md-1" onClick={showSeting}>
-              x
-            </p>
+            <h5>
+              Setting
+              <span onClick={showSetingHandler} className="spanSetting">
+                X
+              </span>
+            </h5>
           </div>
           <h5 className="marginLeftSetting">General</h5>
           <div className="marginLeftSetting">
@@ -92,6 +110,39 @@ function NavBar() {
               <input type="checkbox" />
               <span class="slider round"></span>
             </label>
+          </div>
+        </div>
+      )}
+      {showQuestion && (
+        <div className="borderQuestion ">
+          <div className="setting">
+            <h5>
+              Help
+              <span onClick={showQuestionHandler}>X</span>
+            </h5>
+            <div>
+              <a href="#" target="_blank">
+                Get support
+              </a>
+            </div>
+            <div className="row marginSync">
+              <div className="col-md-2">
+                <button>Sync</button>
+              </div>
+              <div className="col-md-10">
+                <p>Up to date</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {showBullhorn && (
+        <div className="borderBullhorn">
+          <div className="setting">
+            <h5>
+              What's new
+              <span onClick={showBullhornHandler}>X</span>
+            </h5>
           </div>
         </div>
       )}
