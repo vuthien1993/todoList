@@ -2,12 +2,10 @@ import React from "react";
 import Modal from "./Modal";
 import "./ModalDelete.css";
 function ModalDelete(props) {
-  const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
   const deleteHandler = () => {
-    const index = tasksArr.findIndex((ele) => ele.id === props.id);
-    tasksArr.splice(index, 1);
-    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
-    console.log(tasksArr);
+    const index = props.tasksArr.findIndex((ele) => ele.id === props.id);
+    props.tasksArr.splice(index, 1);
+    localStorage.setItem("tasksArr", JSON.stringify(props.tasksArr));
     props.onHidden();
   };
   return (

@@ -68,6 +68,7 @@ function MyDay() {
         <ModalDelete
           onHidden={hiddenModal}
           onShow={showHandler}
+          tasksArr={tasksArr}
           id={id}
           tasks={tasksTodo}
         />
