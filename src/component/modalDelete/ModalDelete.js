@@ -5,11 +5,16 @@ function ModalDelete(props) {
   return (
     <Modal>
       <div className="modalDelete">
-        <p>{props.tasks}</p>
+        <div>
+          "{props.tasks}" <span> will be permanently deleted.</span>
+        </div>
+        <div>
+          <span>You won't be able to undo this action.</span>
+        </div>
         <div className="btnright">
           <button onClick={props.onHidden}>Cancel</button>
           <button className="btndelete" onClick={props.onDelete}>
-            Delete
+            Delete tasks
           </button>
         </div>
       </div>

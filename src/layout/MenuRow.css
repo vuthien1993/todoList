@@ -15,3 +15,58 @@
   height: calc(100vh - 50px);
   background-color: #faf9f7;
 }
+.tasksDetail {
+  height: calc(100vh -50px);
+  background: #faf9f7;
+  box-shadow: 0 0 3px 0 gray;
+}
+.tasksDetail i {
+  cursor: pointer;
+}
+.tasksDetailX {
+  border-radius: 4px 4px 0px 0px;
+  padding: 20px 0px;
+  margin: 0px 5px;
+  background: white;
+  margin-top: 10px;
+}
+.tasksDetailX i,
+.tasksDetailInput i {
+  padding-right: 10px;
+}
+.tasksDetailInput {
+  height: 310px;
+  overflow-y: scroll;
+  margin: 0px 5px;
+  border-radius: 0px 0px 4px 4px;
+}
+.marginLDetail {
+  background: white;
+  padding: 10px;
+}
+.marginLDetail input:focus,
+.marginLDetail input {
+  border: none;
+  outline: 0px;
+}
+.deleteTasks {
+  padding: 20px 0px;
+  bottom: 0px;
+  position: fixed;
+}
+.deleteTasks span {
+  padding: 0px 80px;
+}
+.addtomyday {
+  background: white;
+  margin: 10px 0px;
+  padding: 10px;
+}
+.iconDetail {
+  border-bottom: 1px solid #faf9f7;
+  background: white;
+  padding: 10px;
+}
+.hoverdiv div:hover {
+  background: #f3f2f1;
+}

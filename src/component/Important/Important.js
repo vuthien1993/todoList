@@ -36,8 +36,8 @@ function Important() {
           <div className="row iconMydayAdd">
             <div className="col-md-11">
               <i className="fa-solid fa-calendar-days"></i>
-              <i class="fa-regular fa-bell"></i>
-              <i class="fa-solid fa-arrows-rotate"></i>
+              <i className="fa-regular fa-bell"></i>
+              <i className="fa-solid fa-arrows-rotate"></i>
             </div>
             <div className="col-md-1">
               <button disabled={!formIsvalid}>Add</button>

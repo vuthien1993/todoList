@@ -62,53 +62,53 @@ function NavBar() {
           <h5 className="marginLeftSetting">General</h5>
           <div className="marginLeftSetting">
             <p>Confirm before deleting</p>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
-            </label>
-          </div>
-          <div className="marginLeftSetting">
-            <p>Add new tasks on top</p>
-            <label class="switch">
-              <input type="checkbox" />
-              <span class="slider round" onClick={showOnOff}></span>{" "}
+              <span className="slider round" onClick={showOnOff}></span>
             </label>
             {showOff && <span>Off</span>}
             {showOk && <span>On</span>}
           </div>
           <div className="marginLeftSetting">
-            <p>Move starred tasks to top</p>
-            <label class="switch">
+            <p>Add new tasks on top</p>
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span className="slider round"></span>{" "}
+            </label>
+          </div>
+          <div className="marginLeftSetting">
+            <p>Move starred tasks to top</p>
+            <label className="switch">
+              <input type="checkbox" />
+              <span className="slider round"></span>
             </label>
           </div>
           <div className="marginLeftSetting">
             <p>Play completion sound</p>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
           </div>
           <div className="marginLeftSetting">
             <p>Show right-click menus</p>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
           </div>
           <div className="marginLeftSetting">
             <p>Turn on reminder notifications</p>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
           </div>
           <div className="marginLeftSetting">
             <p>Show tasks that seem important in My Day</p>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
           </div>
         </div>
