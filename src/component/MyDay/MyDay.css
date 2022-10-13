@@ -66,6 +66,15 @@
   padding: 5px;
   box-shadow: 0 0 1px 0 gray;
 }
+.tasksArrList1 {
+  background: white;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 91%;
+  padding: 5px;
+  box-shadow: 0 0 1px 0 gray;
+}
 .iconMydayAdd i {
   cursor: pointer;
   padding: 10px;
@@ -82,9 +91,7 @@
 .borderTasksArr {
   cursor: pointer;
   margin-top: 1px;
-
   position: fixed;
-
   height: 210px;
   overflow-y: scroll;
 }
@@ -94,7 +101,21 @@
 .borderTasksArr2 {
   width: 74.3%;
 }
-.mydayDetail {
-  height: calc(100vh - 50px);
-  background: yellow;
+
+.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+.checked::before {
+  content: "";
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
 }

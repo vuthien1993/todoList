@@ -55,7 +55,7 @@ function NavBar() {
             <h5>
               Setting
               <span onClick={showSetingHandler} className="spanSetting">
-                X
+                ×
               </span>
             </h5>
           </div>
@@ -118,7 +118,7 @@ function NavBar() {
           <div className="setting">
             <h5>
               Help
-              <span onClick={showQuestionHandler}>X</span>
+              <span onClick={showQuestionHandler}>×</span>
             </h5>
             <div>
               <a href="#" target="_blank">
@@ -141,7 +141,7 @@ function NavBar() {
           <div className="setting">
             <h5>
               What's new
-              <span onClick={showBullhornHandler}>X</span>
+              <span onClick={showBullhornHandler}>×</span>
             </h5>
           </div>
         </div>

@@ -5,14 +5,15 @@ import ModalDelete from "../modalDelete/ModalDelete";
 import "./MyDay.css";
 
 function MyDay(props) {
-  const [showStar, setShowStar] = useState(true);
   // lay data tu localstorage
   const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
   //khai bao mang chua data
   const [tasks, setTasks] = useState(tasksArr);
   //khai bao lay gia tri thoi gian thuc
   const d = moment().format("dddd, MMMM Do");
+  const [showStar, setShowStar] = useState(tasksArr.isDone);
   //khai bao su dung custom hook
+
   const [id, setId] = useState("");
   const [tasksTodo, setTasksTodo] = useState("");
   const {
@@ -37,6 +38,8 @@ function MyDay(props) {
     event.preventDefault();
     let id = randomIntFromInterval(1, 999);
     let tasksItem = {
+      isImportant: false,
+      isDone: false,
       id: id,
       tasks: enteredTasks,
     };
@@ -57,11 +60,10 @@ function MyDay(props) {
     props.onShowModal();
     props.onHidden();
   };
-
-  //xử lý riêng từng sự kiện trong div tổng
   const testHandler = (e) => {
-    setShowStar((pre) => !pre);
-    e.stopPropagation();
+    // e.stopPropagation();
+    e.isImportant = !e.isImportant;
+    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
   };
   const showTasksDetailHandler = (ele) => {
     setId(ele.id);
@@ -77,6 +79,7 @@ function MyDay(props) {
     : "borderTasksArr2";
   const classMyday = showTasksDetail ? "col-md-5" : "col-md-8";
   const classSort = showTasksDetail ? "col-md-7" : "col-md-4";
+  const classTasksArrList = showTasksDetail ? "tasksArrList1" : "tasksArrList";
   return (
     <React.Fragment>
       {props.show && (
@@ -151,7 +154,7 @@ function MyDay(props) {
                 return (
                   <div
                     key={ele.id}
-                    className="tasksArrList row"
+                    className={`${classTasksArrList} row`}
                     onClick={() => showTasksDetailHandler(ele)}
                   >
                     <div className="col-md-1">
@@ -161,15 +164,15 @@ function MyDay(props) {
                       <p> {ele.tasks}</p>
                       <p className="textSize">Tasks</p>
                     </div>
-                    <div className="col-md-1" onClick={testHandler}>
-                      {showStar && (
+                    <div className="col-md-1" onClick={() => testHandler(ele)}>
+                      {!ele.isImportant && (
                         <i
                           className="fa-regular fa-star"
                           data-toggle="tooltip"
                           title="Mark tasks as important!"
                         ></i>
                       )}
-                      {!showStar && (
+                      {ele.isImportant && (
                         <i
                           className="fa-solid fa-star"
                           data-toggle="tooltip"
