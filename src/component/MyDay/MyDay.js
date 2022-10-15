@@ -92,79 +92,90 @@ function MyDay(props) {
         />
       )}
       <div>
-        <div className="row mydayBorder">
-          <div className={`${classMyday} marginTMyday`}>
-            <h5>
-              <i className="fa-regular fa-sun ipadding"></i>My Day{" "}
-              <span>...</span>
-            </h5>
-            <p className="textGray">{d}</p>
+        <div className="mydayBorder">
+          <div className="fll myday">
+            <div className="mydayDate">
+              <h5>
+                <i className="fa-regular fa-sun"></i>My Day <span>...</span>
+              </h5>
+            </div>
+
+            <div className="textGray mydayspan">
+              <span>{d}</span>
+            </div>
           </div>
-          <div className={`${classSort} marginTMyday1`}>
+          <div className="fll mydaySort">
             <div className="textGray">
-              <span>
-                <span>
+              <span className="sort">
+                <span className="ipadding">
                   <i className="fa fa-arrow-down" aria-hidden="true"></i>
                   <i className="fa fa-arrow-up" aria-hidden="true"></i>
                 </span>
                 <span>Sort</span>
               </span>
-              <span className="spanHover">
-                <span className="ipadding">
-                  <span className="fa-solid fa-neuter" />
-                  Suggestions
-                </span>
+              <span className=" suggestions">
+                <span className="fa-solid fa-neuter ipadding" />
+                <span>Suggestions</span>
               </span>
             </div>
           </div>
+        </div>
+        {/* /////////////////////////////// */}
+        <div className="formSubmitMyday">
           <form onSubmit={submitHandler}>
-            <div className="inputTasks">
-              <i className="fa-regular fa-circle"></i>
-              <input
-                placeholder="Add a tasks"
-                value={enteredTasks}
-                onChange={changeHandler}
-                onBlur={blurHandler}
-              />
-            </div>
-            <div className="row iconMydayAdd">
-              <div className={classIconAdd}>
-                <i
-                  className="fa-solid fa-calendar-days"
-                  data-toggle="tooltip"
-                  title="Add due date!"
-                ></i>
-                <i
-                  class="fa-regular fa-bell"
-                  data-toggle="tooltip"
-                  title="Remind me!"
-                ></i>
-                <i
-                  class="fa-solid fa-arrows-rotate"
-                  data-toggle="tooltip"
-                  title="Repeat!"
-                ></i>
+            <div className="totalInputTask">
+              <div className="inputTasks">
+                <i className="fa-regular fa-circle"></i>
+                <input
+                  placeholder="Add a tasks"
+                  value={enteredTasks}
+                  onChange={changeHandler}
+                  onBlur={blurHandler}
+                />
               </div>
-              <div className={classbuttonAdd}>
-                <button disabled={!formIsvalid}>Add</button>
+              <div className="iconMydayAdd">
+                <div className="textGray fll">
+                  <i
+                    className="fa-solid fa-calendar-days"
+                    data-toggle="tooltip"
+                    title="Add due date!"
+                  ></i>
+                  <i
+                    class="fa-regular fa-bell"
+                    data-toggle="tooltip"
+                    title="Remind me!"
+                  ></i>
+                  <i
+                    className="fa-solid fa-repeat"
+                    data-toggle="tooltip"
+                    title="Repeat!"
+                  ></i>
+                </div>
+                <div className="fll" id="ffl">
+                  <button disabled={!formIsvalid}>Add</button>
+                </div>
               </div>
             </div>
-            <div className={`${classBorderTasksArr} borderTasksArr`}>
+            {/* //////////////////////// */}
+            <div className="tasksArrList">
               {tasksArr.map((ele) => {
                 return (
                   <div
+                    className="borderTasksArr"
                     key={ele.id}
-                    className={`${classTasksArrList} row`}
                     onClick={() => showTasksDetailHandler(ele)}
                   >
-                    <div className="col-md-1">
-                      <i className="fa-regular fa-circle"></i>
+                    <div className="fll iconLine">
+                      <i className="fa-regular fa-circle "></i>
                     </div>
-                    <div className="col-md-10">
-                      <p> {ele.tasks}</p>
-                      <p className="textSize">Tasks</p>
+                    <div className="fll taskName">
+                      <span> {ele.tasks}</span>
+                      <span className="textSize">Tasks</span>
                     </div>
-                    <div className="col-md-1" onClick={() => testHandler(ele)}>
+                    <div
+                      className="fll iconLineStar"
+                      onClick={() => testHandler(ele)}
+                    >
                       {!ele.isImportant && (
                         <i
                           className="fa-regular fa-star"

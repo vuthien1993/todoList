@@ -27,26 +27,37 @@ function NavBar() {
   };
   return (
     <nav>
-      <div className="container-fluid navbarContent navbarborder">
-        <div className="row">
-          <p className="col-md-3">
-            <span className="fa-solid fa-grip" /> <span> To Do </span>
-          </p>
-          <div className="col-md-7">
-            <button>
+      <div className="navbarContent navbarborder">
+        <div className="fll navIcon">
+          <span className="fa-solid fa-grip" />
+        </div>
+        <div className="fll navTodo">
+          <div className="navTodoDiv">
+            <a>
+              <span>To Do</span>
+            </a>
+          </div>
+        </div>
+        <div className="fll navSearchInput">
+          <div>
+            <button aria-label="enter-search">
               <i className="fa fa-search" aria-hidden="true"></i>
             </button>
             <input />
           </div>
+        </div>
 
-          <div className="col-md-2">
-            <span className="fa-solid fa-gear" onClick={showSetingHandler} />
-            <span
-              className="fa-solid fa-question"
-              onClick={showQuestionHandler}
-            />
-            <span className="fas fa-bullhorn" onClick={showBullhornHandler} />
-          </div>
+        <div className="fll navIcon">
+          <span className="fa-solid fa-gear" onClick={showSetingHandler} />
+        </div>
+        <div className="fll navIcon">
+          <span
+            className="fa-solid fa-question"
+            onClick={showQuestionHandler}
+          />
+        </div>
+        <div className="fll navIcon">
+          <span className="fas fa-bullhorn" onClick={showBullhornHandler} />
         </div>
       </div>
       {showSeting && (
