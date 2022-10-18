@@ -72,12 +72,11 @@ function MyDay(props) {
     props.onShowTasksDetail(tasksTodo);
   };
   const showTasksDetail = props.showTasksDetail;
-  const classbuttonAdd = showTasksDetail ? "col-md-2" : "col-md-1";
-  const classIconAdd = showTasksDetail ? "col-md-10" : "col-md-11";
+  const classMyday = showTasksDetail ? "myday1" : "myday";
+  const classIconStar = showTasksDetail ? "iconLineStar1" : "iconLineStar";
   const classBorderTasksArr = showTasksDetail
     ? "borderTasksArr1"
     : "borderTasksArr2";
-  const classMyday = showTasksDetail ? "col-md-5" : "col-md-8";
   const classSort = showTasksDetail ? "col-md-7" : "col-md-4";
   const classTasksArrList = showTasksDetail ? "tasksArrList1" : "tasksArrList";
   return (
@@ -93,7 +92,7 @@ function MyDay(props) {
       )}
       <div>
         <div className="mydayBorder">
-          <div className="fll myday">
+          <div className={`fll ${classMyday}`}>
             <div className="mydayDate">
               <h5>
                 <i className="fa-regular fa-sun"></i>My Day <span>...</span>
@@ -134,7 +133,7 @@ function MyDay(props) {
                 />
               </div>
               <div className="iconMydayAdd">
-                <div className="textGray fll">
+                <div className="textGray fll iconWidth">
                   <i
                     className="fa-solid fa-calendar-days"
                     data-toggle="tooltip"
@@ -170,14 +169,13 @@ function MyDay(props) {
                     </div>
                     <div className="fll taskName">
                       <span> {ele.tasks}</span>
+                      <br />
                       <span className="textSize">Tasks</span>
                     </div>
-                    <div
-                      className="fll iconLineStar"
-                      onClick={() => testHandler(ele)}
-                    >
+                    <div className={`fll ${classIconStar}`}>
                       {!ele.isImportant && (
                         <i
+                          onClick={() => testHandler(ele)}
                           className="fa-regular fa-star"
                           data-toggle="tooltip"
                           title="Mark tasks as important!"
@@ -185,6 +183,8 @@ function MyDay(props) {
                       )}
                       {ele.isImportant && (
                         <i
+                          onClick={() => testHandler(ele)}
+                          style={{ color: "blue" }}
                           className="fa-solid fa-star"
                           data-toggle="tooltip"
                           title="Remove importance!"

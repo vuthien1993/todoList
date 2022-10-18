@@ -75,7 +75,7 @@ function MenuRow() {
   const showModalHandler = () => {
     setShow(!show);
   };
-  const classShowDetail = showTasksDetail ? "col-md-5" : "col-md-9";
+  const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
   return (
     <React.Fragment>
       <div className="borderNavRow">
@@ -142,7 +142,7 @@ function MenuRow() {
             )}
           </div>
         </div>
-        <div className="fll main-content">
+        <div className={`fll ${classShowDetail}`}>
           {displayMyday && (
             <MyDay
               onShowTasksDetail={showTasksDetailHandler}
@@ -156,7 +156,7 @@ function MenuRow() {
           {displayPlanned && <Planned />}
         </div>
         {showTasksDetail && (
-          <div className="tasksDetail col-md-4">
+          <div className="tasksDetail fll">
             <div className="tasksDetailX row">
               <div className="col-md-10">
                 <i className="fa-regular fa-circle "></i>

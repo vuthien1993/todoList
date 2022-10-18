@@ -56,7 +56,15 @@
   width: calc(100% - 26.517%);
   box-shadow: 0 0 1px 0 gray;
 }
+.main-content1 {
+  overflow: hidden;
+  height: calc(100vh - 48px);
+  background-color: #faf9f7;
+  width: 40.56%;
+  box-shadow: 0 0 1px 0 gray;
+}
 .tasksDetail {
+  width: calc(100% - 67.077%);
   height: calc(100vh -48px);
   background: #faf9f7;
   box-shadow: 0 0 3px 0 gray;
@@ -91,9 +99,14 @@
   outline: 0px;
 }
 .deleteTasks {
+  width: 100%;
+  background-color: #faf9f7;
   padding: 20px 0px;
   bottom: 0px;
   position: fixed;
+}
+.deleteTasks i {
+  margin-left: 20px;
 }
 .deleteTasks span {
   padding: 0px 80px;
