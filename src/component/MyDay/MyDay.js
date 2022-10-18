@@ -12,6 +12,8 @@ function MyDay(props) {
   //khai bao lay gia tri thoi gian thuc
   const d = moment().format("dddd, MMMM Do");
   const [showStar, setShowStar] = useState(tasksArr.isDone);
+  const [isImportant, setIsImportant] = useState(false);
+
   //khai bao su dung custom hook
 
   const [id, setId] = useState("");
@@ -60,9 +62,10 @@ function MyDay(props) {
     props.onShowModal();
     props.onHidden();
   };
-  const testHandler = (e) => {
-    // e.stopPropagation();
-    e.isImportant = !e.isImportant;
+  const testHandler = (ele, event) => {
+    setIsImportant(!isImportant);
+    event.stopPropagation();
+    ele.isImportant = !ele.isImportant;
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
   };
   const showTasksDetailHandler = (ele) => {
@@ -77,7 +80,6 @@ function MyDay(props) {
   const classBorderTasksArr = showTasksDetail
     ? "borderTasksArr1"
     : "borderTasksArr2";
-  const classSort = showTasksDetail ? "col-md-7" : "col-md-4";
   const classTasksArrList = showTasksDetail ? "tasksArrList1" : "tasksArrList";
   return (
     <React.Fragment>
@@ -175,7 +177,8 @@ function MyDay(props) {
                     <div className={`fll ${classIconStar}`}>
                       {!ele.isImportant && (
                         <i
-                          onClick={() => testHandler(ele)}
+                          style={{ color: "blue" }}
+                          onClick={(event) => testHandler(ele, event)}
                           className="fa-regular fa-star"
                           data-toggle="tooltip"
                           title="Mark tasks as important!"
@@ -183,7 +186,7 @@ function MyDay(props) {
                       )}
                       {ele.isImportant && (
                         <i
-                          onClick={() => testHandler(ele)}
+                          onClick={(event) => testHandler(ele, event)}
                           style={{ color: "blue" }}
                           className="fa-solid fa-star"
                           data-toggle="tooltip"

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Important from "../component/Important/Important";
 import Planned from "../component/Planned/Planned";
 import MyDay from "../component/MyDay/MyDay";
 import "./MenuRow.css";
 function MenuRow() {
+  const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
+  const [tasksArr1, setTasksArr1] = useState(tasksArr);
+  console.log(tasksArr1.length);
   const [display, setDisplay] = useState(true);
   const [displayMyday, setDisplayMyday] = useState(true);
   const [displayImportant, setDisplayImportant] = useState(false);
@@ -160,7 +163,6 @@ function MenuRow() {
             <div className="tasksDetailX row">
               <div className="col-md-10">
                 <i className="fa-regular fa-circle "></i>
-
                 {tasks}
               </div>
               <div className="col-md-2">
@@ -184,7 +186,6 @@ function MenuRow() {
                   </div>
                   <div className="iconDetail">
                     <i className="fa-regular fa-bell"></i>
-
                     <span>Remind me</span>
                   </div>
                   <div className="iconDetail">
