@@ -39,6 +39,7 @@ function MyDay(props) {
     event.preventDefault();
     let id = randomIntFromInterval(1, 999);
     let tasksItem = {
+      isDone: false,
       isImportant: false,
       isMyday: true,
       isPlanned: false,
@@ -52,20 +53,27 @@ function MyDay(props) {
   const deleteHandler = () => {
     dispatch(importantAction.deleteTask({ id }));
     props.onShowModal();
-    props.onHidden();
+    dispatch(importantAction.hidenDetail());
   };
   const testHandler = (ele, event) => {
     event.stopPropagation();
-    const id = ele.id;
-    dispatch(importantAction.important({ id }));
+    const idI = ele.id;
+    dispatch(importantAction.important({ idI }));
+    if (ele.id === id) {
+      const isImportant = !ele.isImportant;
+      dispatch(importantAction.showImportantDetail({ isImportant }));
+    }
   };
   const showTasksDetail = useSelector(
     (state) => state.important.showTasksDetail
   );
   const showTasksDetailHandler = (ele) => {
     setId(ele.id);
+    const idDetail = ele.id;
     const tasksName = ele.tasks;
-    dispatch(importantAction.showDetail({ tasksName }));
+    const isImportant = ele.isImportant;
+    dispatch(importantAction.showDetail({ tasksName, idDetail }));
+    dispatch(importantAction.showImportantDetail({ isImportant }));
     console.log(showTasksDetail);
   };
   const classMyday = showTasksDetail ? "myday1" : "myday";

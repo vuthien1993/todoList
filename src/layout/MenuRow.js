@@ -7,6 +7,7 @@ import Tasks from "../component/Tasks/Tasks";
 import { importantAction } from "../Redux/important";
 import "./MenuRow.css";
 function MenuRow() {
+  const isImportant = useSelector((state) => state.important.isImportant);
   const tasksArr = useSelector((state) => state.important.tasksArr);
   const tasksImportant = tasksArr.filter((ele) => ele.isImportant === true);
   const mydayTasksArr = tasksArr.filter((ele) => ele.isMyday === true);
@@ -18,9 +19,13 @@ function MenuRow() {
   const [displayFlag, setDisplayFlag] = useState(false);
   const [displayTask, setDisplayTask] = useState(false);
   const [show, setShow] = useState(false);
+  //hàm tích chọn, bỏ chọn quan trọng khi mở detail
+  const importantDetail = () => {
+    dispatch(importantAction.importantDetail());
+  };
+
   const mydayClickHandler = () => {
     dispatch(importantAction.hidenDetail());
-
     setDisplayMyday(true);
     setDisplayImportant(false);
     setDisplayPlanned(false);
@@ -188,18 +193,14 @@ function MenuRow() {
           </div>
         </div>
         <div className={`fll ${classShowDetail}`}>
-          {displayMyday && (
-            <MyDay
-              // onShowTasksDetail={showTasksDetailHandler}
-              // showTasksDetail={showTasksDetail}
-              show={show}
-              onShowModal={showModalHandler}
-              // onHidden={hiddenTasksDetail}
-            />
+          {displayMyday && <MyDay show={show} onShowModal={showModalHandler} />}
+          {displayImportant && (
+            <Important show={show} onShowModal={showModalHandler} />
           )}
-          {displayImportant && <Important />}
-          {displayPlanned && <Planned />}
-          {displayTask && <Tasks />}
+          {displayPlanned && (
+            <Planned show={show} onShowModal={showModalHandler} />
+          )}
+          {displayTask && <Tasks show={show} onShowModal={showModalHandler} />}
         </div>
         {showTasksDetail && (
           <div className="tasksDetail fll">
@@ -209,11 +210,24 @@ function MenuRow() {
                 {tasks}
               </div>
               <div className="col-md-2">
-                <i
-                  className="fa-regular fa-star"
-                  data-toggle="tooltip"
-                  title="Mark tasks as important!"
-                ></i>
+                {!isImportant && (
+                  <i
+                    onClick={importantDetail}
+                    style={{ color: "blue" }}
+                    className="fa-regular fa-star"
+                    data-toggle="tooltip"
+                    title="Mark tasks as important!"
+                  ></i>
+                )}
+                {isImportant && (
+                  <i
+                    onClick={importantDetail}
+                    style={{ color: "blue" }}
+                    className="fa-solid fa-star"
+                    data-toggle="tooltip"
+                    title="Remove importance!"
+                  ></i>
+                )}
               </div>
             </div>
             <div className="tasksDetailInput textGray">

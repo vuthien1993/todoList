@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { importantAction } from "../../Redux/important";
+import ModalDelete from "../modalDelete/ModalDelete";
 import useInput from "../../hook/use-input";
 import "./Tasks.css";
-function Tasks() {
+function Tasks(props) {
+  const [id, setId] = useState("");
   const dispatch = useDispatch();
   const tasksArr = useSelector((state) => state.important.tasksArr);
   const tasksImportant = tasksArr.filter((ele) => ele.isImportant === true);
@@ -29,6 +31,7 @@ function Tasks() {
     event.preventDefault();
     let id = randomIntFromInterval(1, 999);
     let tasksItem = {
+      isDone: false,
       isImportant: false,
       isMyday: false,
       isPlanned: false,
@@ -39,10 +42,47 @@ function Tasks() {
     dispatch(importantAction.addtasks({ tasksItem }));
     resetTasksInput();
   };
+
+  ///////////////////////////////////////
+  const deleteHandler = () => {
+    dispatch(importantAction.deleteTask({ id }));
+    props.onShowModal();
+    dispatch(importantAction.hidenDetail());
+  };
+  const testHandler = (ele, event) => {
+    event.stopPropagation();
+    const idI = ele.id;
+    dispatch(importantAction.important({ idI }));
+    if (ele.id === id) {
+      const isImportant = !ele.isImportant;
+      dispatch(importantAction.showImportantDetail({ isImportant }));
+    }
+  };
+  const showTasksDetail = useSelector(
+    (state) => state.important.showTasksDetail
+  );
+  const showTasksDetailHandler = (ele) => {
+    setId(ele.id);
+    const idDetail = ele.id;
+    const tasksName = ele.tasks;
+    const isImportant = ele.isImportant;
+    dispatch(importantAction.showDetail({ tasksName, idDetail }));
+    dispatch(importantAction.showImportantDetail({ isImportant }));
+    console.log(showTasksDetail);
+  };
+  const classIconStar = showTasksDetail ? "iconLineStar1" : "iconLineStar";
   return (
     <React.Fragment>
+      {props.show && (
+        <ModalDelete
+          onHidden={props.onShowModal}
+          onDelete={deleteHandler}
+          tasksArr={tasksArr}
+          id={id}
+        />
+      )}
       <div className="mydayBorder ">
-        <div className="fll marginTMyday lineTasks" id="sizeText">
+        <div className={`fll marginTMyday lineTasks`} id="sizeText">
           <p className="textColorImportant">
             <i className="fa-solid fa-house"></i> Tasks
             <button>...</button>
@@ -90,7 +130,7 @@ function Tasks() {
                 <div
                   className="borderTasksArr"
                   key={ele.id}
-                  // onClick={() => showTasksDetailHandler(ele)}
+                  onClick={() => showTasksDetailHandler(ele)}
                 >
                   <div className="fll iconLine">
                     <i className="fa-regular fa-circle "></i>
@@ -98,11 +138,11 @@ function Tasks() {
                   <div className="fll taskName">
                     <span className="tasksLine"> {ele.tasks}</span>
                   </div>
-                  <div className={`fll iconLineStar`}>
+                  <div className={`fll ${classIconStar}`}>
                     {!ele.isImportant && (
                       <i
                         style={{ color: "blue" }}
-                        // onClick={(event) => testHandler(ele, event)}
+                        onClick={(event) => testHandler(ele, event)}
                         className="fa-regular fa-star"
                         data-toggle="tooltip"
                         title="Mark tasks as important!"
@@ -110,7 +150,7 @@ function Tasks() {
                     )}
                     {ele.isImportant && (
                       <i
-                        // onClick={(event) => testHandler(ele, event)}
+                        onClick={(event) => testHandler(ele, event)}
                         style={{ color: "blue" }}
                         className="fa-solid fa-star"
                         data-toggle="tooltip"

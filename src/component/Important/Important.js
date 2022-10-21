@@ -29,6 +29,7 @@ function Important() {
     event.preventDefault();
     let id = randomIntFromInterval(1, 999);
     let tasksItem = {
+      isDone: false,
       isImportant: true,
       isMyday: false,
       isPlanned: false,
