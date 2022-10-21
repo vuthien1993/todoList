@@ -70,7 +70,10 @@ function Tasks(props) {
     dispatch(importantAction.showImportantDetail({ isImportant }));
     console.log(showTasksDetail);
   };
-  const classIconStar = showTasksDetail ? "iconLineStar1" : "iconLineStar";
+  //ham chon va bo chon hoan thanh cong viec
+  const isDoneHandler = (event) => {
+    event.stopPropagation();
+  };
   return (
     <React.Fragment>
       {props.show && (
@@ -133,12 +136,15 @@ function Tasks(props) {
                   onClick={() => showTasksDetailHandler(ele)}
                 >
                   <div className="fll iconLine">
-                    <i className="fa-regular fa-circle "></i>
+                    <i
+                      className="fa-regular fa-circle "
+                      onClick={isDoneHandler}
+                    ></i>
                   </div>
                   <div className="fll taskName">
                     <span className="tasksLine"> {ele.tasks}</span>
                   </div>
-                  <div className={`fll ${classIconStar}`}>
+                  <div className={`fll iconLineStar`}>
                     {!ele.isImportant && (
                       <i
                         style={{ color: "blue" }}

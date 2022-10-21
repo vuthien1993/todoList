@@ -140,7 +140,7 @@
   display: block;
 }
 .iconLine {
-  width: 6.37%;
+  width: 48px;
   padding: 0px 20px 0px 10px;
   line-height: 50px;
 }
@@ -148,15 +148,11 @@
   width: 50%;
 }
 .iconLineStar {
-  width: calc(100% - 56.37%);
+  width: calc(50% - 48px);
   text-align: right;
   line-height: 50px;
 }
-.iconLineStar1 {
-  width: calc(100% - 58.37%);
-  text-align: right;
-  line-height: 50px;
-}
+
 .checked {
   background: #888;
   color: #fff;

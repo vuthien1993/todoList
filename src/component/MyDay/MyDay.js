@@ -77,7 +77,6 @@ function MyDay(props) {
     console.log(showTasksDetail);
   };
   const classMyday = showTasksDetail ? "myday1" : "myday";
-  const classIconStar = showTasksDetail ? "iconLineStar1" : "iconLineStar";
   return (
     <React.Fragment>
       {props.show && (
@@ -170,7 +169,7 @@ function MyDay(props) {
                       <br />
                       <span className="textSize">Tasks</span>
                     </div>
-                    <div className={`fll ${classIconStar}`}>
+                    <div className={`fll iconLineStar`}>
                       {!ele.isImportant && (
                         <i
                           style={{ color: "blue" }}

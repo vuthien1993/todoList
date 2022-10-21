@@ -26,3 +26,9 @@ button:disabled {
 .textGray {
   color: gray;
 }
+::-webkit-input-placeholder {
+  color: blue;
+}
+:focus::-webkit-input-placeholder {
+  color: rgb(44, 43, 43);
+}
