@@ -3,6 +3,18 @@
   clear: both;
   display: block;
 }
+.showMyday::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.lineNumber {
+  width: 30%;
+  text-align: right;
+}
+.widthContent {
+  width: 70%;
+}
 .leftColumn {
   width: 26.517%;
   height: calc(100vh - 48px);
@@ -75,7 +87,7 @@
 .tasksDetailX {
   border-radius: 4px 4px 0px 0px;
   padding: 20px 0px;
-  margin: 0px 5px;
+  margin: 0px 20px;
   background: white;
   margin-top: 10px;
 }
@@ -86,7 +98,7 @@
 .tasksDetailInput {
   height: 310px;
   overflow-y: scroll;
-  margin: 0px 5px;
+  margin: 0px 20px;
   border-radius: 0px 0px 4px 4px;
 }
 .marginLDetail {
@@ -122,5 +134,6 @@
   padding: 10px;
 }
 .hoverdiv div:hover {
+  color: black;
   background: #f3f2f1;
 }

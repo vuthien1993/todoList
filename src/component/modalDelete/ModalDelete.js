@@ -1,12 +1,14 @@
 import React from "react";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
 import "./ModalDelete.css";
 function ModalDelete(props) {
+  const tasks = useSelector((state) => state.important.tasksName);
   return (
     <Modal>
       <div className="modalDelete">
         <div>
-          "{props.tasks}" <span> will be permanently deleted.</span>
+          "{tasks}" <span> will be permanently deleted.</span>
         </div>
         <div>
           <span>You won't be able to undo this action.</span>

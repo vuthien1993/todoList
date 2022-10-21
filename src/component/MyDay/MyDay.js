@@ -1,32 +1,31 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { importantAction } from "../../Redux/important";
 import moment from "moment/moment";
 import useInput from "../../hook/use-input";
 import ModalDelete from "../modalDelete/ModalDelete";
 import "./MyDay.css";
 
 function MyDay(props) {
-  // lay data tu localstorage
-  const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
+  const tasksArr = useSelector((state) => state.important.tasksArr);
+  const mydayTasksArr = tasksArr.filter((ele) => ele.isMyday === true);
+  const dispatch = useDispatch();
   //khai bao mang chua data
-  const [tasks, setTasks] = useState(tasksArr);
+  // const [tasks, setTasks] = useState(tasksArr);
   //khai bao lay gia tri thoi gian thuc
   const d = moment().format("dddd, MMMM Do");
-  const [showStar, setShowStar] = useState(tasksArr.isDone);
-  const [isImportant, setIsImportant] = useState(false);
-
   //khai bao su dung custom hook
 
   const [id, setId] = useState("");
-  const [tasksTodo, setTasksTodo] = useState("");
   const {
-    value: enteredTasks,
-    isValid: enteredTasksIsvalid,
+    value: enteredMyday,
+    isValid: enteredMydayIsvalid,
     valueChangeHandler: changeHandler,
     inputBlurHandler: blurHandler,
-    reset: resetTasksInput,
+    reset: resetMydayInput,
   } = useInput((value) => value.trim() !== "");
   let formIsvalid = false;
-  if (enteredTasksIsvalid) {
+  if (enteredMydayIsvalid) {
     formIsvalid = true;
   }
 
@@ -41,46 +40,36 @@ function MyDay(props) {
     let id = randomIntFromInterval(1, 999);
     let tasksItem = {
       isImportant: false,
-      isDone: false,
+      isMyday: true,
+      isPlanned: false,
+      isTasks: false,
       id: id,
-      tasks: enteredTasks,
+      tasks: enteredMyday,
     };
-    setTasks((pre) => {
-      const newTasks = [...pre, tasksItem];
-      localStorage.setItem("tasksArr", JSON.stringify(newTasks));
-      return newTasks;
-    });
-    console.log(tasks);
-    resetTasksInput();
+    dispatch(importantAction.addtasks({ tasksItem }));
+    resetMydayInput();
   };
   const deleteHandler = () => {
-    const index = tasksArr.findIndex((ele) => id === ele.id);
-    tasksArr.splice(index, 1);
-    //set lại state vi moi state chỉ khởi tạo giá trị ban đầu 1 lần duy nhất
-    setTasks(tasksArr);
-    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    dispatch(importantAction.deleteTask({ id }));
     props.onShowModal();
     props.onHidden();
   };
   const testHandler = (ele, event) => {
-    setIsImportant(!isImportant);
     event.stopPropagation();
-    ele.isImportant = !ele.isImportant;
-    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    const id = ele.id;
+    dispatch(importantAction.important({ id }));
   };
+  const showTasksDetail = useSelector(
+    (state) => state.important.showTasksDetail
+  );
   const showTasksDetailHandler = (ele) => {
     setId(ele.id);
-    setTasksTodo(ele.tasks);
-    console.log(tasksTodo);
-    props.onShowTasksDetail(tasksTodo);
+    const tasksName = ele.tasks;
+    dispatch(importantAction.showDetail({ tasksName }));
+    console.log(showTasksDetail);
   };
-  const showTasksDetail = props.showTasksDetail;
   const classMyday = showTasksDetail ? "myday1" : "myday";
   const classIconStar = showTasksDetail ? "iconLineStar1" : "iconLineStar";
-  const classBorderTasksArr = showTasksDetail
-    ? "borderTasksArr1"
-    : "borderTasksArr2";
-  const classTasksArrList = showTasksDetail ? "tasksArrList1" : "tasksArrList";
   return (
     <React.Fragment>
       {props.show && (
@@ -89,7 +78,6 @@ function MyDay(props) {
           onDelete={deleteHandler}
           tasksArr={tasksArr}
           id={id}
-          tasks={tasksTodo}
         />
       )}
       <div>
@@ -129,7 +117,7 @@ function MyDay(props) {
                 <i className="fa-regular fa-circle"></i>
                 <input
                   placeholder="Add a tasks"
-                  value={enteredTasks}
+                  value={enteredMyday}
                   onChange={changeHandler}
                   onBlur={blurHandler}
                 />
@@ -159,7 +147,7 @@ function MyDay(props) {
             </div>
             {/* //////////////////////// */}
             <div className="tasksArrList">
-              {tasksArr.map((ele) => {
+              {mydayTasksArr.map((ele) => {
                 return (
                   <div
                     className="borderTasksArr"

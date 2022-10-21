@@ -23,3 +23,6 @@ button:disabled {
   border: #ccc;
   color: #3f3f3f;
 }
+.textGray {
+  color: gray;
+}

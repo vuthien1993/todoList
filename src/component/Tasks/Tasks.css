@@ -1,0 +1,20 @@
+.tasksLine {
+  line-height: 50px;
+}
+.lineTasks {
+  line-height: 68px;
+}
+.lineTasks1 {
+  line-height: 72px;
+  width: 70%;
+  text-align: right;
+  padding-right: 10px;
+}
+#sizeText {
+  font-size: 25px;
+  width: 30%;
+}
+#btnAdd {
+  width: 70%;
+  text-align: right;
+}

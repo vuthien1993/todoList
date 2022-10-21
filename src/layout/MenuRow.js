@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Important from "../component/Important/Important";
 import Planned from "../component/Planned/Planned";
 import MyDay from "../component/MyDay/MyDay";
+import Tasks from "../component/Tasks/Tasks";
+import { importantAction } from "../Redux/important";
 import "./MenuRow.css";
 function MenuRow() {
-  const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
-  const [tasksArr1, setTasksArr1] = useState(tasksArr);
-  console.log(tasksArr1.length);
+  const tasksArr = useSelector((state) => state.important.tasksArr);
+  const tasksImportant = tasksArr.filter((ele) => ele.isImportant === true);
+  const mydayTasksArr = tasksArr.filter((ele) => ele.isMyday === true);
   const [display, setDisplay] = useState(true);
   const [displayMyday, setDisplayMyday] = useState(true);
   const [displayImportant, setDisplayImportant] = useState(false);
@@ -14,10 +17,10 @@ function MenuRow() {
   const [displayAtm, setDisplayAtm] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);
   const [displayTask, setDisplayTask] = useState(false);
-  const [showTasksDetail, setShowTasksDetail] = useState(false);
-  const [tasks, setTasks] = useState("");
   const [show, setShow] = useState(false);
   const mydayClickHandler = () => {
+    dispatch(importantAction.hidenDetail());
+
     setDisplayMyday(true);
     setDisplayImportant(false);
     setDisplayPlanned(false);
@@ -26,6 +29,8 @@ function MenuRow() {
     setDisplayTask(false);
   };
   const impotantClickHandler = () => {
+    dispatch(importantAction.hidenDetail());
+
     setDisplayMyday(false);
     setDisplayImportant(true);
     setDisplayPlanned(false);
@@ -34,6 +39,8 @@ function MenuRow() {
     setDisplayTask(false);
   };
   const plannedClickHandler = () => {
+    dispatch(importantAction.hidenDetail());
+
     setDisplayMyday(false);
     setDisplayImportant(false);
     setDisplayPlanned(true);
@@ -42,6 +49,8 @@ function MenuRow() {
     setDisplayTask(false);
   };
   const atmClickHandler = () => {
+    dispatch(importantAction.hidenDetail());
+
     setDisplayMyday(false);
     setDisplayImportant(false);
     setDisplayPlanned(false);
@@ -50,6 +59,8 @@ function MenuRow() {
     setDisplayTask(false);
   };
   const flagClickHandler = () => {
+    dispatch(importantAction.hidenDetail());
+
     setDisplayMyday(false);
     setDisplayImportant(false);
     setDisplayPlanned(false);
@@ -58,6 +69,8 @@ function MenuRow() {
     setDisplayTask(false);
   };
   const taskClickHandler = () => {
+    dispatch(importantAction.hidenDetail());
+
     setDisplayMyday(false);
     setDisplayImportant(false);
     setDisplayPlanned(false);
@@ -68,12 +81,21 @@ function MenuRow() {
   const displayHandler = () => {
     setDisplay((pre) => !pre);
   };
-  const showTasksDetailHandler = (data) => {
-    setShowTasksDetail(true);
-    setTasks(data);
-  };
+  // const showTasksDetailHandler = (data) => {
+  //   setShowTasksDetail(true);
+  //   setTasks(data);
+  // };
+  // const hiddenTasksDetail = () => {
+  //   setShowTasksDetail(false);
+  // };
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.important.tasksName);
+  console.log(tasks);
+  const showTasksDetail = useSelector(
+    (state) => state.important.showTasksDetail
+  );
   const hiddenTasksDetail = () => {
-    setShowTasksDetail(false);
+    dispatch(importantAction.hidenDetail());
   };
   const showModalHandler = () => {
     setShow(!show);
@@ -91,11 +113,18 @@ function MenuRow() {
               <div className="siderbarContent">
                 <div
                   onClick={mydayClickHandler}
-                  className={` ${
+                  className={`${
                     displayMyday ? "siderbarItemActive" : "siderbarItem"
                   }`}
                 >
-                  <i className="fa-regular fa-sun"></i> <span>My Day</span>
+                  <div className="fll widthContent">
+                    <i className="fa-regular fa-sun"></i> <span>My Day</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {mydayTasksArr.length !== 0 && (
+                      <span>{mydayTasksArr.length}</span>
+                    )}
+                  </div>
                 </div>
 
                 <div
@@ -104,7 +133,15 @@ function MenuRow() {
                     displayImportant ? "siderbarItemActive" : "siderbarItem"
                   }`}
                 >
-                  <i className="fa-regular fa-star"></i> <span>Important</span>
+                  <div className="fll widthContent">
+                    <i className="fa-regular fa-star"></i>{" "}
+                    <span>Important</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {tasksImportant.length !== 0 && (
+                      <span>{tasksImportant.length}</span>
+                    )}
+                  </div>
                 </div>
                 <div
                   onClick={plannedClickHandler}
@@ -138,8 +175,13 @@ function MenuRow() {
                     displayTask ? "siderbarItemActive" : "siderbarItem"
                   }`}
                 >
-                  <i className="fa-solid fa-house"></i>
-                  <span>Tasks</span>
+                  <div className="fll widthContent">
+                    <i className="fa-solid fa-house"></i>
+                    <span>Tasks</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {tasksArr.length !== 0 && <span>{tasksArr.length}</span>}
+                  </div>
                 </div>
               </div>
             )}
@@ -148,15 +190,16 @@ function MenuRow() {
         <div className={`fll ${classShowDetail}`}>
           {displayMyday && (
             <MyDay
-              onShowTasksDetail={showTasksDetailHandler}
-              showTasksDetail={showTasksDetail}
+              // onShowTasksDetail={showTasksDetailHandler}
+              // showTasksDetail={showTasksDetail}
               show={show}
               onShowModal={showModalHandler}
-              onHidden={hiddenTasksDetail}
+              // onHidden={hiddenTasksDetail}
             />
           )}
           {displayImportant && <Important />}
           {displayPlanned && <Planned />}
+          {displayTask && <Tasks />}
         </div>
         {showTasksDetail && (
           <div className="tasksDetail fll">
@@ -173,7 +216,7 @@ function MenuRow() {
                 ></i>
               </div>
             </div>
-            <div className="tasksDetailInput">
+            <div className="tasksDetailInput textGray">
               <div className="marginLDetail">
                 <i className="fa-regular fa-circle "></i>
                 <input placeholder="Add step" />

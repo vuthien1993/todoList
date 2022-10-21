@@ -4,3 +4,19 @@
 .textColorImportant button {
   background: gray;
 }
+
+.tasksArrListImportant {
+  height: calc(100vh - 233px);
+  overflow-y: scroll;
+  margin: 2px -24px 0px 0px;
+}
+.borderTasksArrI {
+  border: 1px solid rgb(221, 221, 221);
+  padding: 0px 16px;
+  height: 50px;
+  width: 99%;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
