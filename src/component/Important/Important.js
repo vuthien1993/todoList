@@ -6,7 +6,9 @@ import "./Important.css";
 function Important() {
   const dispatch = useDispatch();
   const tasksArr = useSelector((state) => state.important.tasksArr);
-  const tasksImportant = tasksArr.filter((ele) => ele.isImportant === true);
+  const tasksImportant = tasksArr.filter(
+    (ele) => ele.isImportant === true && ele.isDone !== true
+  );
   console.log(tasksImportant);
   const {
     value: enteredImportant,
@@ -91,7 +93,7 @@ function Important() {
           </div>
           {/* ////////////////// */}
           <div className="tasksArrList">
-            {tasksImportant.map((ele) => {
+            {[...tasksImportant].reverse().map((ele) => {
               return (
                 <div
                   className="borderTasksArr"

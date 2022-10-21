@@ -8,7 +8,9 @@ import "./MyDay.css";
 
 function MyDay(props) {
   const tasksArr = useSelector((state) => state.important.tasksArr);
-  const mydayTasksArr = tasksArr.filter((ele) => ele.isMyday === true);
+  const mydayTasksArr = tasksArr.filter(
+    (ele) => ele.isMyday === true && ele.isDone !== true
+  );
   const dispatch = useDispatch();
   //khai bao mang chua data
   // const [tasks, setTasks] = useState(tasksArr);
@@ -83,7 +85,6 @@ function MyDay(props) {
         <ModalDelete
           onHidden={props.onShowModal}
           onDelete={deleteHandler}
-          tasksArr={tasksArr}
           id={id}
         />
       )}
@@ -154,7 +155,7 @@ function MyDay(props) {
             </div>
             {/* //////////////////////// */}
             <div className="tasksArrList">
-              {mydayTasksArr.map((ele) => {
+              {[...mydayTasksArr].reverse().map((ele) => {
                 return (
                   <div
                     className="borderTasksArr"

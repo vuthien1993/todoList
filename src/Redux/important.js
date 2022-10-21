@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
 
 const initialState = {
+  isDone: false,
   idTasks: "",
   isImportant: false,
   showTasksDetail: false,
@@ -51,6 +52,13 @@ const important = createSlice({
     },
     hidenDetail(state) {
       state.showTasksDetail = false;
+    },
+    complete(state, { payload }) {
+      const updateArr = state.tasksArr.map((ele) =>
+        ele.id === payload.idC ? { ...ele, isDone: !ele.isDone } : ele
+      );
+      state.tasksArr = updateArr;
+      localStorage.setItem("tasksArr", JSON.stringify(state.tasksArr));
     },
   },
 });

@@ -8,9 +8,14 @@ import { importantAction } from "../Redux/important";
 import "./MenuRow.css";
 function MenuRow() {
   const isImportant = useSelector((state) => state.important.isImportant);
-  const tasksArr = useSelector((state) => state.important.tasksArr);
-  const tasksImportant = tasksArr.filter((ele) => ele.isImportant === true);
-  const mydayTasksArr = tasksArr.filter((ele) => ele.isMyday === true);
+  const tasksArrTotal = useSelector((state) => state.important.tasksArr);
+  const tasksArr = tasksArrTotal.filter((ele) => ele.isDone !== true);
+  const tasksImportant = tasksArrTotal.filter(
+    (ele) => ele.isImportant === true && ele.isDone !== true
+  );
+  const mydayTasksArr = tasksArrTotal.filter(
+    (ele) => ele.isMyday === true && ele.isDone !== true
+  );
   const [display, setDisplay] = useState(true);
   const [displayMyday, setDisplayMyday] = useState(true);
   const [displayImportant, setDisplayImportant] = useState(false);

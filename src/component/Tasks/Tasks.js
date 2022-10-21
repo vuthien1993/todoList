@@ -7,9 +7,10 @@ import "./Tasks.css";
 function Tasks(props) {
   const [id, setId] = useState("");
   const dispatch = useDispatch();
-  const tasksArr = useSelector((state) => state.important.tasksArr);
-  const tasksImportant = tasksArr.filter((ele) => ele.isImportant === true);
-  console.log(tasksImportant);
+  const tasksArrTotal = useSelector((state) => state.important.tasksArr);
+  const tasksArr = tasksArrTotal.filter((ele) => ele.isDone !== true);
+  const tasksArrCompele = tasksArrTotal.filter((ele) => ele.isDone === true);
+
   const {
     value: enteredTasks,
     valueChangeHandler: changeHandler,
@@ -71,9 +72,12 @@ function Tasks(props) {
     console.log(showTasksDetail);
   };
   //ham chon va bo chon hoan thanh cong viec
-  const isDoneHandler = (event) => {
+  const isDoneHandler = (ele, event) => {
     event.stopPropagation();
+    const idC = ele.id;
+    dispatch(importantAction.complete({ idC }));
   };
+
   return (
     <React.Fragment>
       {props.show && (
@@ -128,7 +132,7 @@ function Tasks(props) {
           </div>
           {/* ////////////////// */}
           <div className="tasksArrList">
-            {tasksArr.map((ele) => {
+            {[...tasksArr].reverse().map((ele) => {
               return (
                 <div
                   className="borderTasksArr"
@@ -138,11 +142,11 @@ function Tasks(props) {
                   <div className="fll iconLine">
                     <i
                       className="fa-regular fa-circle "
-                      onClick={isDoneHandler}
+                      onClick={(event) => isDoneHandler(ele, event)}
                     ></i>
                   </div>
                   <div className="fll taskName">
-                    <span className="tasksLine"> {ele.tasks}</span>
+                    <span className="tasksLine checked"> {ele.tasks}</span>
                   </div>
                   <div className={`fll iconLineStar`}>
                     {!ele.isImportant && (
