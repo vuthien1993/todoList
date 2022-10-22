@@ -9,8 +9,8 @@ function Tasks(props) {
   const dispatch = useDispatch();
   const tasksArrTotal = useSelector((state) => state.important.tasksArr);
   const tasksArr = tasksArrTotal.filter((ele) => ele.isDone !== true);
-  const tasksArrCompele = tasksArrTotal.filter((ele) => ele.isDone === true);
-
+  const tasksArrCompleted = tasksArrTotal.filter((ele) => ele.isDone === true);
+  const showCompleted = useSelector((state) => state.important.showCompleted);
   const {
     value: enteredTasks,
     valueChangeHandler: changeHandler,
@@ -67,8 +67,9 @@ function Tasks(props) {
     const idDetail = ele.id;
     const tasksName = ele.tasks;
     const isImportant = ele.isImportant;
+    const isDone = ele.isDone;
     dispatch(importantAction.showDetail({ tasksName, idDetail }));
-    dispatch(importantAction.showImportantDetail({ isImportant }));
+    dispatch(importantAction.showImportantDetail({ isImportant, isDone }));
     console.log(showTasksDetail);
   };
   //ham chon va bo chon hoan thanh cong viec
@@ -77,7 +78,9 @@ function Tasks(props) {
     const idC = ele.id;
     dispatch(importantAction.complete({ idC }));
   };
-
+  const showCompletedHandler = () => {
+    dispatch(importantAction.showCompleted());
+  };
   return (
     <React.Fragment>
       {props.show && (
@@ -146,7 +149,7 @@ function Tasks(props) {
                     ></i>
                   </div>
                   <div className="fll taskName">
-                    <span className="tasksLine checked"> {ele.tasks}</span>
+                    <span className="tasksLine"> {ele.tasks}</span>
                   </div>
                   <div className={`fll iconLineStar`}>
                     {!ele.isImportant && (
@@ -171,6 +174,62 @@ function Tasks(props) {
                 </div>
               );
             })}
+            <br />
+            {/* Completed */}
+            {tasksArrCompleted.length > 0 && (
+              <div onClick={showCompletedHandler} className="completed">
+                {!showCompleted ? (
+                  <span className="fa-solid fa-chevron-right iconWidthCompleted" />
+                ) : (
+                  <span className="fa-solid fa-chevron-down iconWidthCompleted" />
+                )}
+                <span>Completed</span> <span>{tasksArrCompleted.length}</span>
+              </div>
+            )}
+            {showCompleted && (
+              <div>
+                {tasksArrCompleted.map((ele) => {
+                  return (
+                    <div
+                      className="borderTasksArr"
+                      key={ele.id}
+                      onClick={() => showTasksDetailHandler(ele)}
+                    >
+                      <div className="fll iconLine">
+                        <i
+                          style={{ color: "blue" }}
+                          className="fa-solid fa-circle-check"
+                          onClick={(event) => isDoneHandler(ele, event)}
+                        ></i>
+                      </div>
+                      <div className="fll taskName">
+                        <span className="tasksLine checked"> {ele.tasks}</span>
+                      </div>
+                      <div className={`fll iconLineStar`}>
+                        {!ele.isImportant && (
+                          <i
+                            style={{ color: "blue" }}
+                            onClick={(event) => testHandler(ele, event)}
+                            className="fa-regular fa-star"
+                            data-toggle="tooltip"
+                            title="Mark tasks as important!"
+                          ></i>
+                        )}
+                        {ele.isImportant && (
+                          <i
+                            onClick={(event) => testHandler(ele, event)}
+                            style={{ color: "blue" }}
+                            className="fa-solid fa-star"
+                            data-toggle="tooltip"
+                            title="Remove importance!"
+                          ></i>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </form>
       </div>

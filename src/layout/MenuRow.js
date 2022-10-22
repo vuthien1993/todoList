@@ -7,6 +7,8 @@ import Tasks from "../component/Tasks/Tasks";
 import { importantAction } from "../Redux/important";
 import "./MenuRow.css";
 function MenuRow() {
+  const idDetail = useSelector((state) => state.important.idTasks);
+  const isDone = useSelector((state) => state.important.isDone);
   const isImportant = useSelector((state) => state.important.isImportant);
   const tasksArrTotal = useSelector((state) => state.important.tasksArr);
   const tasksArr = tasksArrTotal.filter((ele) => ele.isDone !== true);
@@ -110,6 +112,11 @@ function MenuRow() {
   const showModalHandler = () => {
     setShow(!show);
   };
+  const isDoneHandler = (event) => {
+    event.stopPropagation();
+    const idC = idDetail;
+    dispatch(importantAction.complete({ idC }));
+  };
   const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
   return (
     <React.Fragment>
@@ -211,8 +218,19 @@ function MenuRow() {
           <div className="tasksDetail fll">
             <div className="tasksDetailX row">
               <div className="col-md-10">
-                <i className="fa-regular fa-circle "></i>
-                {tasks}
+                {isDone ? (
+                  <i
+                    style={{ color: "blue" }}
+                    className="fa-solid fa-circle-check"
+                    onClick={isDoneHandler}
+                  />
+                ) : (
+                  <i
+                    className="fa-regular fa-circle "
+                    onClick={isDoneHandler}
+                  />
+                )}
+                <span className={`${isDone && "checked"}`}> {tasks}</span>
               </div>
               <div className="col-md-2">
                 {!isImportant && (

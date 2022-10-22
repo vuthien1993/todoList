@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { importantAction } from "../../Redux/important";
 import useInput from "../../hook/use-input";
@@ -9,7 +9,7 @@ function Important() {
   const tasksImportant = tasksArr.filter(
     (ele) => ele.isImportant === true && ele.isDone !== true
   );
-  console.log(tasksImportant);
+  const [id, setId] = useState("");
   const {
     value: enteredImportant,
     valueChangeHandler: changeHandler,
@@ -44,8 +44,30 @@ function Important() {
   };
   const testHandler = (ele, event) => {
     event.stopPropagation();
-    const id = ele.id;
-    dispatch(importantAction.important({ id }));
+    const idI = ele.id;
+    dispatch(importantAction.important({ idI }));
+    if (ele.id === id) {
+      const isImportant = !ele.isImportant;
+      dispatch(importantAction.showImportantDetail({ isImportant }));
+    }
+  };
+  const showTasksDetail = useSelector(
+    (state) => state.important.showTasksDetail
+  );
+  const showTasksDetailHandler = (ele) => {
+    setId(ele.id);
+    const idDetail = ele.id;
+    const tasksName = ele.tasks;
+    const isImportant = ele.isImportant;
+    dispatch(importantAction.showDetail({ tasksName, idDetail }));
+    dispatch(importantAction.showImportantDetail({ isImportant }));
+    console.log(showTasksDetail);
+  };
+  //ham chon va bo chon hoan thanh cong viec
+  const isDoneHandler = (ele, event) => {
+    event.stopPropagation();
+    const idC = ele.id;
+    dispatch(importantAction.complete({ idC }));
   };
   return (
     <React.Fragment>
@@ -98,10 +120,13 @@ function Important() {
                 <div
                   className="borderTasksArr"
                   key={ele.id}
-                  // onClick={() => showTasksDetailHandler(ele)}
+                  onClick={() => showTasksDetailHandler(ele)}
                 >
                   <div className="fll iconLine">
-                    <i className="fa-regular fa-circle "></i>
+                    <i
+                      className="fa-regular fa-circle "
+                      onClick={(event) => isDoneHandler(ele, event)}
+                    />
                   </div>
                   <div className="fll taskName">
                     <span> {ele.tasks}</span>

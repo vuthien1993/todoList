@@ -18,3 +18,15 @@
   width: 70%;
   text-align: right;
 }
+.completed {
+  margin-top: -15px;
+}
+.completed:hover {
+  cursor: pointer;
+}
+.completed span {
+  padding: 5px;
+}
+.iconWidthCompleted {
+  width: 25px;
+}

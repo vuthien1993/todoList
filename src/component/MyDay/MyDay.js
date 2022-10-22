@@ -8,9 +8,14 @@ import "./MyDay.css";
 
 function MyDay(props) {
   const tasksArr = useSelector((state) => state.important.tasksArr);
+  const showCompleted = useSelector((state) => state.important.showCompleted);
   const mydayTasksArr = tasksArr.filter(
     (ele) => ele.isMyday === true && ele.isDone !== true
   );
+  const mydayTasksArrCompleted = tasksArr.filter(
+    (ele) => ele.isMyday === true && ele.isDone === true
+  );
+
   const dispatch = useDispatch();
   //khai bao mang chua data
   // const [tasks, setTasks] = useState(tasksArr);
@@ -71,12 +76,23 @@ function MyDay(props) {
   );
   const showTasksDetailHandler = (ele) => {
     setId(ele.id);
+    const isDone = ele.isDone;
+
     const idDetail = ele.id;
     const tasksName = ele.tasks;
     const isImportant = ele.isImportant;
     dispatch(importantAction.showDetail({ tasksName, idDetail }));
-    dispatch(importantAction.showImportantDetail({ isImportant }));
+    dispatch(importantAction.showImportantDetail({ isImportant, isDone }));
     console.log(showTasksDetail);
+  };
+  //ham chon va bo chon hoan thanh cong viec
+  const isDoneHandler = (ele, event) => {
+    event.stopPropagation();
+    const idC = ele.id;
+    dispatch(importantAction.complete({ idC }));
+  };
+  const showCompletedHandler = () => {
+    dispatch(importantAction.showCompleted());
   };
   const classMyday = showTasksDetail ? "myday1" : "myday";
   return (
@@ -163,7 +179,12 @@ function MyDay(props) {
                     onClick={() => showTasksDetailHandler(ele)}
                   >
                     <div className="fll iconLine">
-                      <i className="fa-regular fa-circle "></i>
+                      <i
+                        className="fa-regular fa-circle "
+                        onClick={(event) => {
+                          isDoneHandler(ele, event);
+                        }}
+                      ></i>
                     </div>
                     <div className="fll taskName">
                       <span> {ele.tasks}</span>
@@ -193,6 +214,65 @@ function MyDay(props) {
                   </div>
                 );
               })}
+              <br />
+              {/* Completed */}
+              {mydayTasksArrCompleted.length > 0 && (
+                <div onClick={showCompletedHandler} className="completed">
+                  {!showCompleted ? (
+                    <span className="fa-solid fa-chevron-right iconWidthCompleted" />
+                  ) : (
+                    <span className="fa-solid fa-chevron-down iconWidthCompleted" />
+                  )}
+                  <span>Completed</span>{" "}
+                  <span>{mydayTasksArrCompleted.length}</span>
+                </div>
+              )}
+              {showCompleted && (
+                <div>
+                  {mydayTasksArrCompleted.map((ele) => {
+                    return (
+                      <div
+                        className="borderTasksArr"
+                        key={ele.id}
+                        onClick={() => showTasksDetailHandler(ele)}
+                      >
+                        <div className="fll iconLine">
+                          <i
+                            style={{ color: "blue" }}
+                            className="fa-solid fa-circle-check"
+                            onClick={(event) => isDoneHandler(ele, event)}
+                          ></i>
+                        </div>
+                        <div className="fll taskName">
+                          <span className="checked"> {ele.tasks}</span>
+                          <br />
+                          <span className="textSize">Tasks</span>
+                        </div>
+                        <div className={`fll iconLineStar`}>
+                          {!ele.isImportant && (
+                            <i
+                              style={{ color: "blue" }}
+                              onClick={(event) => testHandler(ele, event)}
+                              className="fa-regular fa-star"
+                              data-toggle="tooltip"
+                              title="Mark tasks as important!"
+                            ></i>
+                          )}
+                          {ele.isImportant && (
+                            <i
+                              onClick={(event) => testHandler(ele, event)}
+                              style={{ color: "blue" }}
+                              className="fa-solid fa-star"
+                              data-toggle="tooltip"
+                              title="Remove importance!"
+                            ></i>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </form>
         </div>
