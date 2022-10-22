@@ -10,6 +10,9 @@
   text-align: right;
   padding-right: 10px;
 }
+.lineTasks1:hover {
+  cursor: pointer;
+}
 #sizeText {
   font-size: 25px;
   width: 70%;

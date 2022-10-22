@@ -7,6 +7,7 @@ import ModalDelete from "../modalDelete/ModalDelete";
 import "./MyDay.css";
 
 function MyDay(props) {
+  const idDetail = useSelector((state) => state.important.idTasks);
   const tasksArr = useSelector((state) => state.important.tasksArr);
   const showCompleted = useSelector((state) => state.important.showCompleted);
   const mydayTasksArr = tasksArr.filter(
@@ -17,8 +18,6 @@ function MyDay(props) {
   );
 
   const dispatch = useDispatch();
-  //khai bao mang chua data
-  // const [tasks, setTasks] = useState(tasksArr);
   //khai bao lay gia tri thoi gian thuc
   const d = moment().format("dddd, MMMM Do");
   //khai bao su dung custom hook
@@ -90,6 +89,9 @@ function MyDay(props) {
     event.stopPropagation();
     const idC = ele.id;
     dispatch(importantAction.complete({ idC }));
+    if (idC === idDetail) {
+      dispatch(importantAction.showCompletedDetail());
+    }
   };
   const showCompletedHandler = () => {
     dispatch(importantAction.showCompleted());

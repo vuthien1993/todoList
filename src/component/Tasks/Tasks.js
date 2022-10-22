@@ -5,6 +5,7 @@ import ModalDelete from "../modalDelete/ModalDelete";
 import useInput from "../../hook/use-input";
 import "./Tasks.css";
 function Tasks(props) {
+  const idDetail = useSelector((state) => state.important.idTasks);
   const [id, setId] = useState("");
   const dispatch = useDispatch();
   const tasksArrTotal = useSelector((state) => state.important.tasksArr);
@@ -77,6 +78,9 @@ function Tasks(props) {
     event.stopPropagation();
     const idC = ele.id;
     dispatch(importantAction.complete({ idC }));
+    if (idC === idDetail) {
+      dispatch(importantAction.showCompletedDetail());
+    }
   };
   const showCompletedHandler = () => {
     dispatch(importantAction.showCompleted());

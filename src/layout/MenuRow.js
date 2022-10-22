@@ -116,6 +116,7 @@ function MenuRow() {
     event.stopPropagation();
     const idC = idDetail;
     dispatch(importantAction.complete({ idC }));
+    dispatch(importantAction.showCompletedDetail());
   };
   const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
   return (

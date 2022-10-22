@@ -68,8 +68,10 @@ const important = createSlice({
         ele.id === payload.idC ? { ...ele, isDone: !ele.isDone } : ele
       );
       state.tasksArr = updateArr;
-      state.isDone = !state.isDone;
       localStorage.setItem("tasksArr", JSON.stringify(state.tasksArr));
+    },
+    showCompletedDetail(state) {
+      state.isDone = !state.isDone;
     },
     //an hien viec hoan thanh
     showCompleted(state) {
