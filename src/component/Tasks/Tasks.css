@@ -6,7 +6,7 @@
 }
 .lineTasks1 {
   line-height: 72px;
-  width: 30%;
+  width: 60%;
   text-align: right;
   padding-right: 10px;
 }
@@ -14,8 +14,9 @@
   cursor: pointer;
 }
 #sizeText {
-  font-size: 25px;
-  width: 70%;
+  font-weight: bold;
+  font-size: 20px;
+  width: 40%;
 }
 #btnAdd {
   width: 70%;
@@ -32,4 +33,10 @@
 }
 .iconWidthCompleted {
   width: 25px;
+}
+.mydayFontsize {
+  font-size: 13px;
+}
+.mydayFontsize span {
+  padding-right: 5px;
 }

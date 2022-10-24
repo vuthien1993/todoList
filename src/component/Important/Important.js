@@ -72,14 +72,14 @@ function Important() {
   return (
     <React.Fragment>
       <div className="mydayBorder">
-        <div className="fll marginTMyday lineTasks" id="sizeText">
+        <div className={`fll marginTMyday lineTasks`} id="sizeText">
           <p className="textColorImportant">
             <i className="fa-regular fa-star ipadding"></i>
             Important
             <button>...</button>
           </p>
         </div>
-        <div className="marginTMyday fll lineTasks1">
+        <div className="fll lineTasks1">
           <p className="textColorImportant">
             <span>
               <i className="fa fa-arrow-down" aria-hidden="true"></i>

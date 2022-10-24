@@ -87,14 +87,6 @@ function Tasks(props) {
   };
   return (
     <React.Fragment>
-      {props.show && (
-        <ModalDelete
-          onHidden={props.onShowModal}
-          onDelete={deleteHandler}
-          tasksArr={tasksArr}
-          id={id}
-        />
-      )}
       <div className="mydayBorder ">
         <div className={`fll marginTMyday lineTasks`} id="sizeText">
           <p className="textColorImportant">
@@ -102,7 +94,7 @@ function Tasks(props) {
             <button>...</button>
           </p>
         </div>
-        <div className="fll marginTMyday lineTasks1">
+        <div className="fll lineTasks1">
           <p className="textColorImportant">
             <span>
               <i className="fa fa-arrow-down" aria-hidden="true"></i>
@@ -153,7 +145,16 @@ function Tasks(props) {
                     ></i>
                   </div>
                   <div className="fll taskName">
-                    <span className="tasksLine"> {ele.tasks}</span>
+                    <span className={`${!ele.isMyday && "tasksLine"}`}>
+                      {ele.tasks}
+                    </span>
+                    <br />
+                    {ele.isMyday && (
+                      <span className="mydayFontsize">
+                        <span className="fa-regular fa-sun" />
+                        My Day
+                      </span>
+                    )}
                   </div>
                   <div className={`fll iconLineStar`}>
                     {!ele.isImportant && (

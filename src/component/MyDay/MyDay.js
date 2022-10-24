@@ -96,7 +96,6 @@ function MyDay(props) {
   const showCompletedHandler = () => {
     dispatch(importantAction.showCompleted());
   };
-  const classMyday = showTasksDetail ? "myday1" : "myday";
   return (
     <React.Fragment>
       {props.show && (
@@ -108,18 +107,17 @@ function MyDay(props) {
       )}
       <div>
         <div className="mydayBorder">
-          <div className={`fll ${classMyday}`}>
-            <div className="mydayDate">
-              <h5>
-                <i className="fa-regular fa-sun"></i>My Day <span>...</span>
-              </h5>
-            </div>
-
+          <div className={`fll contentLineMyday`} id="sizeText">
+            <p>
+              <span className="fa-regular fa-sun ipadding" />
+              My Day
+              <span>...</span>
+            </p>
             <div className="textGray mydayspan">
               <span>{d}</span>
             </div>
           </div>
-          <div className="fll mydaySort">
+          <div className="fll lineTasks1">
             <div className="textGray">
               <span className="sort">
                 <span className="ipadding">
@@ -128,7 +126,7 @@ function MyDay(props) {
                 </span>
                 <span>Sort</span>
               </span>
-              <span className=" suggestions">
+              <span className="suggestions">
                 <span className="fa-solid fa-neuter ipadding" />
                 <span>Suggestions</span>
               </span>

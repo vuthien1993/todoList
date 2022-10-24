@@ -26,10 +26,6 @@ function MenuRow() {
   const [displayFlag, setDisplayFlag] = useState(false);
   const [displayTask, setDisplayTask] = useState(false);
   const [show, setShow] = useState(false);
-  //hàm tích chọn, bỏ chọn quan trọng khi mở detail
-  const importantDetail = () => {
-    dispatch(importantAction.importantDetail());
-  };
 
   const mydayClickHandler = () => {
     dispatch(importantAction.hidenDetail());
@@ -117,6 +113,15 @@ function MenuRow() {
     const idC = idDetail;
     dispatch(importantAction.complete({ idC }));
     dispatch(importantAction.showCompletedDetail());
+  };
+  //hàm tích chọn, bỏ chọn quan trọng khi mở detail
+  const importantDetail = () => {
+    dispatch(importantAction.importantDetail());
+  };
+  const deleteTaskHandler = () => {
+    const id = idDetail;
+    dispatch(importantAction.deleteTask({ id }));
+    dispatch(importantAction.hidenDetail());
   };
   const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
   return (
@@ -301,7 +306,7 @@ function MenuRow() {
                 title="Delete tasks!"
                 data-placement="top"
                 className="fa-regular fa-trash-can"
-                onClick={showModalHandler}
+                onClick={deleteTaskHandler}
               ></i>
             </div>
           </div>
