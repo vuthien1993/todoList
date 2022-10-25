@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import useInput from "../hook/use-input";
 import Important from "../component/Important/Important";
 import Planned from "../component/Planned/Planned";
 import MyDay from "../component/MyDay/MyDay";
 import Tasks from "../component/Tasks/Tasks";
 import { importantAction } from "../Redux/important";
 import "./MenuRow.css";
+import { nextStepAction } from "../Redux/nextStep";
 function MenuRow() {
   const idDetail = useSelector((state) => state.important.idTasks);
   const isDone = useSelector((state) => state.important.isDone);
@@ -89,13 +91,7 @@ function MenuRow() {
   const displayHandler = () => {
     setDisplay((pre) => !pre);
   };
-  // const showTasksDetailHandler = (data) => {
-  //   setShowTasksDetail(true);
-  //   setTasks(data);
-  // };
-  // const hiddenTasksDetail = () => {
-  //   setShowTasksDetail(false);
-  // };
+
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.important.tasksName);
   console.log(tasks);
@@ -123,6 +119,48 @@ function MenuRow() {
     dispatch(importantAction.deleteTask({ id }));
     dispatch(importantAction.hidenDetail());
   };
+  // xu ly them step detail task //////////////////////////////////////
+  const nextStepArr = useSelector((state) => state.nextStep.nextStepArr);
+  const stepDetail = nextStepArr.filter((ele) => ele.idDetail === idDetail);
+  console.log(stepDetail);
+  const {
+    value: enteredStep,
+    valueChangeHandler: changeHandler,
+    reset: resetStepInput,
+  } = useInput((value) => value.trim() !== "");
+
+  const randomIntFromInterval = (min, max) => {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
+  //ham submit
+  const submitHandler = (event) => {
+    event.preventDefault();
+    let id = randomIntFromInterval(1, 999);
+    let stepItem = {
+      idDetail,
+      isDone: false,
+      id: id,
+      nameStep: enteredStep,
+    };
+    dispatch(nextStepAction.addStep({ stepItem }));
+    resetStepInput();
+  };
+
+  //ham xoa step
+
+  const deleteStepHandler = (ele) => {
+    const id = ele.id;
+    dispatch(nextStepAction.deleteStep({ id }));
+  };
+
+  //ham chon step da hoan thanh
+  const completedHandler = (ele) => {
+    const idC = ele.id;
+    dispatch(nextStepAction.completed({ idC }));
+  };
+
   const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
   return (
     <React.Fragment>
@@ -223,6 +261,7 @@ function MenuRow() {
         {showTasksDetail && (
           <div className="tasksDetail fll">
             <div className="tasksDetailX row">
+              <div className="divR"></div>
               <div className="col-md-10">
                 {isDone ? (
                   <i
@@ -259,11 +298,47 @@ function MenuRow() {
                 )}
               </div>
             </div>
+            {/* //////////////xu ly add step////////////////// */}
             <div className="tasksDetailInput textGray">
-              <div className="marginLDetail">
+              {stepDetail.map((ele) => {
+                return (
+                  <div key={ele.id} className="addStep">
+                    <div className="borderStep fll">
+                      {ele.isDone ? (
+                        <i
+                          style={{ color: "blue" }}
+                          className="fa-solid fa-circle-check"
+                          onClick={() => completedHandler(ele)}
+                        />
+                      ) : (
+                        <i
+                          className="fa-regular fa-circle "
+                          onClick={() => completedHandler(ele)}
+                        />
+                      )}
+                    </div>
+                    <div className="contentStep fll">
+                      <div className="fll nameStep">
+                        <span className={`${ele.isDone ? "checked" : ""}`}>
+                          {ele.nameStep}
+                        </span>
+                      </div>
+                      <div className="fll deleteStep">
+                        <span onClick={() => deleteStepHandler(ele)}> ×</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              <form className="marginLDetail" onSubmit={submitHandler}>
                 <i className="fa-regular fa-circle "></i>
-                <input placeholder="Add step" />
-              </div>
+                <input
+                  placeholder="Add step"
+                  onChange={changeHandler}
+                  value={enteredStep}
+                />
+                {enteredStep !== "" && <button>add</button>}
+              </form>
               <div>
                 <div className="hoverdiv">
                   <div className="addtomyday">

@@ -75,8 +75,14 @@ function Important() {
         <div className={`fll marginTMyday lineTasks`} id="sizeText">
           <p className="textColorImportant">
             <i className="fa-regular fa-star ipadding"></i>
-            Important
-            <button>...</button>
+            <span>Important</span>
+            <span
+              className="fa-solid fa-ellipsis dotpadding"
+              style={{
+                color: "gray",
+                fontSize: "16px",
+              }}
+            />{" "}
           </p>
         </div>
         <div className="fll lineTasks1">

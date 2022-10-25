@@ -14,7 +14,7 @@
   cursor: pointer;
 }
 #sizeText {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 20px;
   width: 40%;
 }

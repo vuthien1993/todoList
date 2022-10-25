@@ -90,8 +90,14 @@ function Tasks(props) {
       <div className="mydayBorder ">
         <div className={`fll marginTMyday lineTasks`} id="sizeText">
           <p className="textColorImportant">
-            <i className="fa-solid fa-house"></i> Tasks
-            <button>...</button>
+            <i className="fa-solid fa-house"></i> <span>Tasks</span>
+            <span
+              className="fa-solid fa-ellipsis dotpadding"
+              style={{
+                color: "gray",
+                fontSize: "16px",
+              }}
+            />
           </p>
         </div>
         <div className="fll lineTasks1">

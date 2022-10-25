@@ -77,7 +77,8 @@
 }
 .tasksDetail {
   width: calc(100% - 67.077%);
-  height: calc(100vh -48px);
+  height: calc(100vh - 48px);
+  overflow-y: scroll;
   background: #faf9f7;
   box-shadow: 0 0 3px 0 gray;
 }
@@ -85,21 +86,28 @@
   cursor: pointer;
 }
 .tasksDetailX {
-  border-radius: 4px 4px 0px 0px;
-  padding: 20px 0px;
+  top: 0;
+  position: sticky;
+  height: 60px;
   margin: 0px 20px;
   background: white;
-  margin-top: 10px;
+}
+.divR {
+  height: 10px;
+  background-color: #faf9f7;
 }
 .tasksDetailX i,
 .tasksDetailInput i {
   padding-right: 10px;
 }
 .tasksDetailInput {
-  height: 310px;
-  overflow-y: scroll;
   margin: 0px 20px;
   border-radius: 0px 0px 4px 4px;
+}
+
+.tasksDetailInput button {
+  background: white;
+  border: none;
 }
 .marginLDetail {
   background: white;
@@ -107,13 +115,14 @@
 }
 .marginLDetail input:focus,
 .marginLDetail input {
+  width: 75%;
   border: none;
   outline: 0px;
 }
 .deleteTasks {
+  height: 40px;
   width: 100%;
   background-color: #faf9f7;
-  padding: 20px 0px;
   bottom: 0px;
   position: fixed;
 }
@@ -121,7 +130,7 @@
   margin-left: 20px;
 }
 .deleteTasks span {
-  padding: 0px 80px;
+  padding: 0px 8%;
 }
 .addtomyday {
   background: white;
@@ -136,4 +145,37 @@
 .hoverdiv div:hover {
   color: black;
   background: #f3f2f1;
+}
+.addStep {
+  background: white;
+}
+.addStep::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.borderStep {
+  width: 12.6%;
+  line-height: 50px;
+  height: 50px;
+  padding-left: 12px;
+  background: white;
+}
+.contentStep {
+  width: 87.4%;
+  line-height: 50px;
+  height: 50px;
+  background: white;
+  border-bottom: solid 1px #e8e7e6;
+}
+.nameStep {
+  width: 70%;
+}
+.deleteStep {
+  padding-right: 20px;
+  width: 30%;
+  text-align: right;
+}
+.deleteStep:hover {
+  cursor: pointer;
 }

@@ -53,10 +53,19 @@
   background: #faf9f7;
   border: none;
 }
+.lineSort {
+  line-height: 48px;
+  width: 60%;
+  text-align: right;
+  padding-right: 10px;
+}
+
 .ipadding {
   padding-right: 5px;
 }
-
+.dotpadding {
+  padding: 10px;
+}
 .formSubmitMyday {
   height: calc(100vh - 136px);
 }

@@ -96,6 +96,16 @@ function MyDay(props) {
   const showCompletedHandler = () => {
     dispatch(importantAction.showCompleted());
   };
+
+  ////////////////////// xử lý step/////////////
+  const nextStepArr = useSelector((state) => state.nextStep.nextStepArr);
+  const displayStep = (ele) => {
+    const stepDetail = nextStepArr.filter(
+      (element) => element.idDetail === ele.id
+    );
+    const stepDetailCompleted = stepDetail.filter((e) => e.isDone === true);
+    return { stepDetail, stepDetailCompleted };
+  };
   return (
     <React.Fragment>
       {props.show && (
@@ -110,14 +120,21 @@ function MyDay(props) {
           <div className={`fll contentLineMyday`} id="sizeText">
             <p>
               <span className="fa-regular fa-sun ipadding" />
-              My Day
-              <span>...</span>
+              <span className="ipadding">My Day</span>
+
+              <span
+                className="fa-solid fa-ellipsis dotpadding"
+                style={{
+                  color: "gray",
+                  fontSize: "16px",
+                }}
+              />
             </p>
             <div className="textGray mydayspan">
               <span>{d}</span>
             </div>
           </div>
-          <div className="fll lineTasks1">
+          <div className="fll lineSort">
             <div className="textGray">
               <span className="sort">
                 <span className="ipadding">
@@ -189,7 +206,20 @@ function MyDay(props) {
                     <div className="fll taskName">
                       <span> {ele.tasks}</span>
                       <br />
-                      <span className="textSize">Tasks</span>
+                      <span className="textSize">
+                        Tasks{" "}
+                        {displayStep(ele).stepDetail.length !== 0 && (
+                          <span>
+                            .{" "}
+                            {displayStep(ele).stepDetail.length ===
+                              displayStep(ele).stepDetailCompleted.length && (
+                              <span className="fa-regular fa-circle-check" />
+                            )}{" "}
+                            {displayStep(ele).stepDetailCompleted.length} of{" "}
+                            {displayStep(ele).stepDetail.length}
+                          </span>
+                        )}
+                      </span>
                     </div>
                     <div className={`fll iconLineStar`}>
                       {!ele.isImportant && (
@@ -247,6 +277,7 @@ function MyDay(props) {
                           <span className="checked"> {ele.tasks}</span>
                           <br />
                           <span className="textSize">Tasks</span>
+                          <span></span>
                         </div>
                         <div className={`fll iconLineStar`}>
                           {!ele.isImportant && (
