@@ -148,80 +148,79 @@ function Planned() {
                 </div>
               </div>
             </div>
-            {/* //////////////////////// */}
-            {/* Completed */}
-            <br />
-            {plannedTasksArr.length > 0 && (
-              <div className="today" onClick={showPlannedHandler}>
-                {!showPlanned ? (
-                  <span className="fa-solid fa-chevron-right iconWidthCompleted" />
-                ) : (
-                  <span className="fa-solid fa-chevron-down iconWidthCompleted" />
-                )}
-                <span>Today</span> <span>{plannedTasksArr.length}</span>
-              </div>
-            )}
-            {showPlanned && (
-              <div className="tasksArrList">
-                {[...plannedTasksArr].reverse().map((ele) => {
-                  return (
-                    <div
-                      className="borderTasksArr"
-                      key={ele.id}
-                      onClick={() => showTasksDetailHandler(ele)}
-                    >
-                      <div className="fll iconLine">
-                        <i
-                          className="fa-regular fa-circle "
-                          onClick={(event) => {
-                            isDoneHandler(ele, event);
-                          }}
-                        ></i>
-                      </div>
-                      <div className="fll taskName">
-                        <span> {ele.tasks}</span>
-                        <br />
-                        <span className="textSize">
-                          Tasks{" "}
-                          {displayStep(ele).stepDetail.length !== 0 && (
-                            <span>
-                              .{" "}
-                              {displayStep(ele).stepDetail.length ===
-                                displayStep(ele).stepDetailCompleted.length && (
-                                <span className="fa-regular fa-circle-check" />
-                              )}{" "}
-                              {displayStep(ele).stepDetailCompleted.length} of{" "}
-                              {displayStep(ele).stepDetail.length}
-                            </span>
+            <div className="tasksArrList">
+              {plannedTasksArr.length > 0 && (
+                <div className="today" onClick={showPlannedHandler}>
+                  {!showPlanned ? (
+                    <span className="fa-solid fa-chevron-right iconWidthCompleted" />
+                  ) : (
+                    <span className="fa-solid fa-chevron-down iconWidthCompleted" />
+                  )}
+                  <span>Today</span> <span>{plannedTasksArr.length}</span>
+                </div>
+              )}
+              {showPlanned && (
+                <div>
+                  {[...plannedTasksArr].reverse().map((ele) => {
+                    return (
+                      <div
+                        className="borderTasksArr"
+                        key={ele.id}
+                        onClick={() => showTasksDetailHandler(ele)}
+                      >
+                        <div className="fll iconLine">
+                          <i
+                            className="fa-regular fa-circle "
+                            onClick={(event) => {
+                              isDoneHandler(ele, event);
+                            }}
+                          ></i>
+                        </div>
+                        <div className="fll taskName">
+                          <span> {ele.tasks}</span>
+                          <br />
+                          <span className="textSize">
+                            Tasks{" "}
+                            {displayStep(ele).stepDetail.length !== 0 && (
+                              <span>
+                                .{" "}
+                                {displayStep(ele).stepDetail.length ===
+                                  displayStep(ele).stepDetailCompleted
+                                    .length && (
+                                  <span className="fa-regular fa-circle-check" />
+                                )}{" "}
+                                {displayStep(ele).stepDetailCompleted.length} of{" "}
+                                {displayStep(ele).stepDetail.length}
+                              </span>
+                            )}
+                          </span>
+                        </div>
+                        <div className={`fll iconLineStar`}>
+                          {!ele.isImportant && (
+                            <i
+                              style={{ color: "blue" }}
+                              onClick={(event) => testHandler(ele, event)}
+                              className="fa-regular fa-star"
+                              data-toggle="tooltip"
+                              title="Mark tasks as important!"
+                            ></i>
                           )}
-                        </span>
+                          {ele.isImportant && (
+                            <i
+                              onClick={(event) => testHandler(ele, event)}
+                              style={{ color: "blue" }}
+                              className="fa-solid fa-star"
+                              data-toggle="tooltip"
+                              title="Remove importance!"
+                            ></i>
+                          )}
+                        </div>
                       </div>
-                      <div className={`fll iconLineStar`}>
-                        {!ele.isImportant && (
-                          <i
-                            style={{ color: "blue" }}
-                            onClick={(event) => testHandler(ele, event)}
-                            className="fa-regular fa-star"
-                            data-toggle="tooltip"
-                            title="Mark tasks as important!"
-                          ></i>
-                        )}
-                        {ele.isImportant && (
-                          <i
-                            onClick={(event) => testHandler(ele, event)}
-                            style={{ color: "blue" }}
-                            className="fa-solid fa-star"
-                            data-toggle="tooltip"
-                            title="Remove importance!"
-                          ></i>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-                <br />
-              </div>
-            )}
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </form>
         </div>
       </div>
