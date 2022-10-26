@@ -69,6 +69,16 @@ function Important() {
     const idC = ele.id;
     dispatch(importantAction.complete({ idC }));
   };
+
+  ////////////////////// xử lý step/////////////
+  const nextStepArr = useSelector((state) => state.nextStep.nextStepArr);
+  const displayStep = (ele) => {
+    const stepDetail = nextStepArr.filter(
+      (element) => element.idDetail === ele.id
+    );
+    const stepDetailCompleted = stepDetail.filter((e) => e.isDone === true);
+    return { stepDetail, stepDetailCompleted };
+  };
   return (
     <React.Fragment>
       <div className="mydayBorder">
@@ -137,7 +147,20 @@ function Important() {
                   <div className="fll taskName">
                     <span> {ele.tasks}</span>
                     <br />
-                    <span className="textSize">Tasks</span>
+                    <span className="textSize">
+                      Tasks
+                      {displayStep(ele).stepDetail.length !== 0 && (
+                        <span>
+                          .{" "}
+                          {displayStep(ele).stepDetail.length ===
+                            displayStep(ele).stepDetailCompleted.length && (
+                            <span className="fa-regular fa-circle-check" />
+                          )}{" "}
+                          {displayStep(ele).stepDetailCompleted.length} of{" "}
+                          {displayStep(ele).stepDetail.length}
+                        </span>
+                      )}
+                    </span>
                   </div>
                   <div className={`fll iconLineStar`}>
                     {ele.isImportant && (

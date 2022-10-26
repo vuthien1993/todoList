@@ -1,4 +1,7 @@
-.planned {
-  margin: 16px 24px;
-  height: 64px;
+.today {
+  height: 30px;
+  margin-left: 24px;
+}
+.today:hover {
+  cursor: pointer;
 }

@@ -106,6 +106,7 @@
 }
 
 .tasksDetailInput button {
+  color: blue;
   background: white;
   border: none;
 }
@@ -130,12 +131,16 @@
   margin-left: 20px;
 }
 .deleteTasks span {
-  padding: 0px 8%;
+  padding: 0px 6.9%;
 }
 .addtomyday {
+  padding: 0px 10px;
+  height: 50px;
   background: white;
   margin: 10px 0px;
-  padding: 10px;
+}
+.addtomyday div {
+  line-height: 50px;
 }
 .iconDetail {
   border-bottom: 1px solid #faf9f7;
@@ -177,5 +182,18 @@
   text-align: right;
 }
 .deleteStep:hover {
+  cursor: pointer;
+}
+
+.addedMyday {
+  color: blue;
+  width: 60%;
+}
+.closeMyday {
+  padding-right: 10px;
+  width: 40%;
+  text-align: right;
+}
+.closeMyday:hover {
   cursor: pointer;
 }

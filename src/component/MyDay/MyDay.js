@@ -76,11 +76,11 @@ function MyDay(props) {
   const showTasksDetailHandler = (ele) => {
     setId(ele.id);
     const isDone = ele.isDone;
-
+    const isMyday = ele.isMyday;
     const idDetail = ele.id;
     const tasksName = ele.tasks;
     const isImportant = ele.isImportant;
-    dispatch(importantAction.showDetail({ tasksName, idDetail }));
+    dispatch(importantAction.showDetail({ tasksName, idDetail, isMyday }));
     dispatch(importantAction.showImportantDetail({ isImportant, isDone }));
     console.log(showTasksDetail);
   };
@@ -276,7 +276,21 @@ function MyDay(props) {
                         <div className="fll taskName">
                           <span className="checked"> {ele.tasks}</span>
                           <br />
-                          <span className="textSize">Tasks</span>
+                          <span className="textSize">
+                            Tasks
+                            {displayStep(ele).stepDetail.length !== 0 && (
+                              <span>
+                                .{" "}
+                                {displayStep(ele).stepDetail.length ===
+                                  displayStep(ele).stepDetailCompleted
+                                    .length && (
+                                  <span className="fa-regular fa-circle-check" />
+                                )}{" "}
+                                {displayStep(ele).stepDetailCompleted.length} of{" "}
+                                {displayStep(ele).stepDetail.length}
+                              </span>
+                            )}
+                          </span>
                           <span></span>
                         </div>
                         <div className={`fll iconLineStar`}>

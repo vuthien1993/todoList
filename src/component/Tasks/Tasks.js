@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { importantAction } from "../../Redux/important";
-import ModalDelete from "../modalDelete/ModalDelete";
 import useInput from "../../hook/use-input";
 import "./Tasks.css";
 function Tasks(props) {
@@ -46,11 +45,7 @@ function Tasks(props) {
   };
 
   ///////////////////////////////////////
-  const deleteHandler = () => {
-    dispatch(importantAction.deleteTask({ id }));
-    props.onShowModal();
-    dispatch(importantAction.hidenDetail());
-  };
+  //ham chọn việc quan trọng
   const testHandler = (ele, event) => {
     event.stopPropagation();
     const idI = ele.id;
@@ -84,6 +79,15 @@ function Tasks(props) {
   };
   const showCompletedHandler = () => {
     dispatch(importantAction.showCompleted());
+  };
+  ////////////////////// xử lý step/////////////
+  const nextStepArr = useSelector((state) => state.nextStep.nextStepArr);
+  const displayStep = (ele) => {
+    const stepDetail = nextStepArr.filter(
+      (element) => element.idDetail === ele.id
+    );
+    const stepDetailCompleted = stepDetail.filter((e) => e.isDone === true);
+    return { stepDetail, stepDetailCompleted };
   };
   return (
     <React.Fragment>
@@ -135,7 +139,7 @@ function Tasks(props) {
               </div>
             </div>
           </div>
-          {/* ////////////////// */}
+          {/* ///////// hiển thị tất cả các tasks///////// */}
           <div className="tasksArrList">
             {[...tasksArr].reverse().map((ele) => {
               return (
@@ -151,16 +155,47 @@ function Tasks(props) {
                     ></i>
                   </div>
                   <div className="fll taskName">
-                    <span className={`${!ele.isMyday && "tasksLine"}`}>
+                    <span
+                      className={`${
+                        !ele.isMyday &&
+                        displayStep(ele).stepDetail.length === 0 &&
+                        "tasksLine"
+                      }`}
+                    >
                       {ele.tasks}
                     </span>
                     <br />
-                    {ele.isMyday && (
-                      <span className="mydayFontsize">
-                        <span className="fa-regular fa-sun" />
-                        My Day
-                      </span>
-                    )}
+                    <span className="mydayFontsize">
+                      {ele.isMyday && (
+                        <span>
+                          <span className="fa-regular fa-sun" />
+                          My Day
+                        </span>
+                      )}
+                      {displayStep(ele).stepDetail.length !== 0 &&
+                        ele.isMyday === true && (
+                          <span>
+                            .{" "}
+                            {displayStep(ele).stepDetail.length ===
+                              displayStep(ele).stepDetailCompleted.length && (
+                              <span className="fa-regular fa-circle-check" />
+                            )}{" "}
+                            {displayStep(ele).stepDetailCompleted.length} of{" "}
+                            {displayStep(ele).stepDetail.length}
+                          </span>
+                        )}
+                      {displayStep(ele).stepDetail.length !== 0 &&
+                        ele.isMyday === false && (
+                          <span>
+                            {displayStep(ele).stepDetail.length ===
+                              displayStep(ele).stepDetailCompleted.length && (
+                              <span className="fa-regular fa-circle-check" />
+                            )}{" "}
+                            {displayStep(ele).stepDetailCompleted.length} of{" "}
+                            {displayStep(ele).stepDetail.length}
+                          </span>
+                        )}
+                    </span>
                   </div>
                   <div className={`fll iconLineStar`}>
                     {!ele.isImportant && (
@@ -214,7 +249,50 @@ function Tasks(props) {
                         ></i>
                       </div>
                       <div className="fll taskName">
-                        <span className="tasksLine checked"> {ele.tasks}</span>
+                        <span
+                          className={`${
+                            !ele.isMyday &&
+                            displayStep(ele).stepDetail.length === 0 &&
+                            "tasksLine"
+                          } checked`}
+                        >
+                          {" "}
+                          {ele.tasks}
+                        </span>
+                        <br />
+                        <span className="mydayFontsize">
+                          {ele.isMyday && (
+                            <span>
+                              <span className="fa-regular fa-sun" />
+                              My Day
+                            </span>
+                          )}
+                          {displayStep(ele).stepDetail.length !== 0 &&
+                            ele.isMyday === true && (
+                              <span>
+                                .{" "}
+                                {displayStep(ele).stepDetail.length ===
+                                  displayStep(ele).stepDetailCompleted
+                                    .length && (
+                                  <span className="fa-regular fa-circle-check" />
+                                )}{" "}
+                                {displayStep(ele).stepDetailCompleted.length} of{" "}
+                                {displayStep(ele).stepDetail.length}
+                              </span>
+                            )}
+                          {displayStep(ele).stepDetail.length !== 0 &&
+                            ele.isMyday === false && (
+                              <span>
+                                {displayStep(ele).stepDetail.length ===
+                                  displayStep(ele).stepDetailCompleted
+                                    .length && (
+                                  <span className="fa-regular fa-circle-check" />
+                                )}{" "}
+                                {displayStep(ele).stepDetailCompleted.length} of{" "}
+                                {displayStep(ele).stepDetail.length}
+                              </span>
+                            )}
+                        </span>
                       </div>
                       <div className={`fll iconLineStar`}>
                         {!ele.isImportant && (

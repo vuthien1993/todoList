@@ -11,6 +11,7 @@ import { nextStepAction } from "../Redux/nextStep";
 function MenuRow() {
   const idDetail = useSelector((state) => state.important.idTasks);
   const isDone = useSelector((state) => state.important.isDone);
+  const isMyday = useSelector((state) => state.important.isMyday);
   const isImportant = useSelector((state) => state.important.isImportant);
   const tasksArrTotal = useSelector((state) => state.important.tasksArr);
   const tasksArr = tasksArrTotal.filter((ele) => ele.isDone !== true);
@@ -19,6 +20,9 @@ function MenuRow() {
   );
   const mydayTasksArr = tasksArrTotal.filter(
     (ele) => ele.isMyday === true && ele.isDone !== true
+  );
+  const plannedTasksArr = tasksArrTotal.filter(
+    (ele) => ele.isPlanned === true && ele.isDone !== true
   );
   const [display, setDisplay] = useState(true);
   const [displayMyday, setDisplayMyday] = useState(true);
@@ -119,7 +123,7 @@ function MenuRow() {
     dispatch(importantAction.deleteTask({ id }));
     dispatch(importantAction.hidenDetail());
   };
-  // xu ly them step detail task //////////////////////////////////////
+  // xu ly them step detail task  và add xóa my day//////////////////////////////////////
   const nextStepArr = useSelector((state) => state.nextStep.nextStepArr);
   const stepDetail = nextStepArr.filter((ele) => ele.idDetail === idDetail);
   console.log(stepDetail);
@@ -160,7 +164,10 @@ function MenuRow() {
     const idC = ele.id;
     dispatch(nextStepAction.completed({ idC }));
   };
-
+  //ham add xóa my day
+  const isMydayHandler = () => {
+    dispatch(importantAction.isMyday({ isMyday, idDetail }));
+  };
   const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
   return (
     <React.Fragment>
@@ -210,8 +217,15 @@ function MenuRow() {
                     displayPlanned ? "siderbarItemActive" : "siderbarItem"
                   }`}
                 >
-                  <i className="fa-solid fa-calendar-days"></i>
-                  <span>Planned</span>
+                  <div className="fll widthContent">
+                    <i className="fa-solid fa-calendar-days"></i>
+                    <span>Planned</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {plannedTasksArr.length !== 0 && (
+                      <span>{plannedTasksArr.length}</span>
+                    )}
+                  </div>
                 </div>
                 <div
                   onClick={atmClickHandler}
@@ -337,13 +351,27 @@ function MenuRow() {
                   onChange={changeHandler}
                   value={enteredStep}
                 />
-                {enteredStep !== "" && <button>add</button>}
+                {enteredStep !== "" && <button>Add</button>}
               </form>
               <div>
                 <div className="hoverdiv">
                   <div className="addtomyday">
-                    <i className="fa-regular fa-sun"></i>
-                    <span>Add to my day</span>
+                    {isMyday ? (
+                      <span>
+                        <div className="fll addedMyday">
+                          <i className="fa-regular fa-sun" />
+                          <span>Added to my day</span>
+                        </div>
+                        <div className="fll closeMyday">
+                          <span onClick={isMydayHandler}>×</span>
+                        </div>
+                      </span>
+                    ) : (
+                      <div onClick={isMydayHandler}>
+                        <i className="fa-regular fa-sun" />
+                        <span>Add to my day</span>
+                      </div>
+                    )}
                   </div>
                   <div className="iconDetail">
                     <i className="fa-regular fa-bell"></i>

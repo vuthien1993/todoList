@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
 
 const initialState = {
+  isMyday: false,
   isDone: false,
   idTasks: "",
   isImportant: false,
@@ -10,6 +11,7 @@ const initialState = {
   tasksName: "",
   tasksArr,
   showCompleted: false,
+  showPlanned: false,
 };
 const important = createSlice({
   name: "important",
@@ -52,6 +54,7 @@ const important = createSlice({
       state.tasksName = payload.tasksName;
       state.isImportant = payload.isImportant;
       state.idTasks = payload.idDetail;
+      state.isMyday = payload.isMyday;
     },
     //ht viec quan trong o modaldetail
     showImportantDetail(state, { payload }) {
@@ -76,6 +79,20 @@ const important = createSlice({
     //an hien viec hoan thanh
     showCompleted(state) {
       state.showCompleted = !state.showCompleted;
+    },
+    //ham add xóa my day
+    isMyday(state, { payload }) {
+      const updateArr = state.tasksArr.map((ele) =>
+        ele.id === payload.idDetail
+          ? { ...ele, isMyday: !payload.isMyday }
+          : ele
+      );
+      state.tasksArr = updateArr;
+      localStorage.setItem("tasksArr", JSON.stringify(state.tasksArr));
+      state.isMyday = !payload.isMyday;
+    },
+    showPlanned(state) {
+      state.showPlanned = !state.showPlanned;
     },
   },
 });
