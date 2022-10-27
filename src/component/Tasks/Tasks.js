@@ -89,6 +89,21 @@ function Tasks(props) {
     const stepDetailCompleted = stepDetail.filter((e) => e.isDone === true);
     return { stepDetail, stepDetailCompleted };
   };
+
+  ////////////////khai bao biến tối ưu code jsx ////////////
+  const iconPlanned = (
+    <span className="textBlue">
+      <span className="fa-solid fa-calendar-days" />
+      <span>Today</span>
+    </span>
+  );
+  const iconMyday = (
+    <span>
+      <span className="fa-regular fa-sun" />
+      My Day
+    </span>
+  );
+
   return (
     <React.Fragment>
       <div className="mydayBorder ">
@@ -132,7 +147,7 @@ function Tasks(props) {
               <div className="textGray fll iconWidth">
                 <i className="fa-solid fa-calendar-days"></i>
                 <i className="fa-regular fa-bell"></i>
-                <i className="fa-solid fa-arrows-rotate"></i>
+                <i className="fa-solid fa-repeat"></i>
               </div>
               <div className="fll" id="btnAdd">
                 <button disabled={!formIsvalid}>Add</button>
@@ -159,6 +174,7 @@ function Tasks(props) {
                       className={`${
                         !ele.isMyday &&
                         displayStep(ele).stepDetail.length === 0 &&
+                        !ele.isPlanned &&
                         "tasksLine"
                       }`}
                     >
@@ -166,12 +182,8 @@ function Tasks(props) {
                     </span>
                     <br />
                     <span className="mydayFontsize">
-                      {ele.isMyday && (
-                        <span>
-                          <span className="fa-regular fa-sun" />
-                          My Day
-                        </span>
-                      )}
+                      {ele.isPlanned && iconPlanned}
+                      {ele.isMyday && iconMyday}
                       {displayStep(ele).stepDetail.length !== 0 &&
                         ele.isMyday === true && (
                           <span>
@@ -253,20 +265,16 @@ function Tasks(props) {
                           className={`${
                             !ele.isMyday &&
                             displayStep(ele).stepDetail.length === 0 &&
+                            !ele.isPlanned &&
                             "tasksLine"
                           } checked`}
                         >
-                          {" "}
                           {ele.tasks}
                         </span>
                         <br />
                         <span className="mydayFontsize">
-                          {ele.isMyday && (
-                            <span>
-                              <span className="fa-regular fa-sun" />
-                              My Day
-                            </span>
-                          )}
+                          {ele.isMyday && iconMyday}
+                          {ele.isPlanned && iconPlanned}
                           {displayStep(ele).stepDetail.length !== 0 &&
                             ele.isMyday === true && (
                               <span>

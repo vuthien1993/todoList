@@ -133,7 +133,7 @@ function Planned() {
                     title="Add due date!"
                   ></i>
                   <i
-                    class="fa-regular fa-bell"
+                    className="fa-regular fa-bell"
                     data-toggle="tooltip"
                     title="Remind me!"
                   ></i>
@@ -180,7 +180,7 @@ function Planned() {
                           <span> {ele.tasks}</span>
                           <br />
                           <span className="textSize">
-                            Tasks{" "}
+                            <span>Tasks</span>
                             {displayStep(ele).stepDetail.length !== 0 && (
                               <span>
                                 .{" "}
@@ -193,6 +193,11 @@ function Planned() {
                                 {displayStep(ele).stepDetail.length}
                               </span>
                             )}
+                            <span className="textBlue">
+                              <span>.</span>
+                              <span className="fa-solid fa-calendar-days" />
+                              <span>Today</span>
+                            </span>
                           </span>
                         </div>
                         <div className={`fll iconLineStar`}>

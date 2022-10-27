@@ -117,7 +117,7 @@
   height: calc(100vh - 233px);
   overflow-y: scroll;
   margin: 2px 0px 0px 24px;
-  padding-bottom: 35px;
+  padding-bottom: 30px;
 }
 .tasksArrList1 {
   background: white;

@@ -5,3 +5,9 @@
 .today:hover {
   cursor: pointer;
 }
+.textBlue {
+  color: blue;
+}
+.textBlue span {
+  padding: 3px;
+}

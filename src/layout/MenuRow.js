@@ -242,7 +242,8 @@ function MenuRow() {
                     displayFlag ? "siderbarItemActive" : "siderbarItem"
                   }`}
                 >
-                  <i class="fa-regular fa-flag"></i> <span>Flagged email</span>
+                  <i className="fa-regular fa-flag"></i>{" "}
+                  <span>Flagged email</span>
                 </div>
                 <div
                   onClick={taskClickHandler}

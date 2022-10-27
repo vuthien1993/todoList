@@ -78,6 +78,7 @@
 .tasksDetail {
   width: calc(100% - 67.077%);
   height: calc(100vh - 48px);
+  padding-bottom: 40px;
   overflow-y: scroll;
   background: #faf9f7;
   box-shadow: 0 0 3px 0 gray;

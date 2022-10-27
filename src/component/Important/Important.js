@@ -122,7 +122,7 @@ function Important() {
               <div className="textGray fll iconWidth">
                 <i className="fa-solid fa-calendar-days"></i>
                 <i className="fa-regular fa-bell"></i>
-                <i className="fa-solid fa-arrows-rotate"></i>
+                <i className="fa-solid fa-repeat"></i>
               </div>
               <div className="fll" id="ffl">
                 <button disabled={!formIsvalid}>Add</button>

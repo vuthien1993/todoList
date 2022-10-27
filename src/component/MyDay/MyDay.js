@@ -171,7 +171,7 @@ function MyDay(props) {
                     title="Add due date!"
                   ></i>
                   <i
-                    class="fa-regular fa-bell"
+                    className="fa-regular fa-bell"
                     data-toggle="tooltip"
                     title="Remind me!"
                   ></i>
