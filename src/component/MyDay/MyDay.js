@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { importantAction } from "../../Redux/important";
 import moment from "moment/moment";
+
 import useInput from "../../hook/use-input";
-import ModalDelete from "../modalDelete/ModalDelete";
 import "./MyDay.css";
 
 function MyDay(props) {
@@ -56,11 +56,7 @@ function MyDay(props) {
     dispatch(importantAction.addtasks({ tasksItem }));
     resetMydayInput();
   };
-  const deleteHandler = () => {
-    dispatch(importantAction.deleteTask({ id }));
-    props.onShowModal();
-    dispatch(importantAction.hidenDetail());
-  };
+
   const testHandler = (ele, event) => {
     event.stopPropagation();
     const idI = ele.id;
@@ -108,20 +104,12 @@ function MyDay(props) {
   };
   return (
     <React.Fragment>
-      {props.show && (
-        <ModalDelete
-          onHidden={props.onShowModal}
-          onDelete={deleteHandler}
-          id={id}
-        />
-      )}
       <div>
         <div className="mydayBorder">
           <div className={`fll contentLineMyday`} id="sizeText">
             <p>
               <span className="fa-regular fa-sun ipadding" />
               <span className="ipadding">My Day</span>
-
               <span
                 className="fa-solid fa-ellipsis dotpadding"
                 style={{
@@ -166,20 +154,11 @@ function MyDay(props) {
               <div className="iconMydayAdd">
                 <div className="textGray fll iconWidth">
                   <i
-                    className="fa-solid fa-calendar-days"
-                    data-toggle="tooltip"
                     title="Add due date!"
+                    className="fa-solid fa-calendar-days"
                   ></i>
-                  <i
-                    className="fa-regular fa-bell"
-                    data-toggle="tooltip"
-                    title="Remind me!"
-                  ></i>
-                  <i
-                    className="fa-solid fa-repeat"
-                    data-toggle="tooltip"
-                    title="Repeat!"
-                  ></i>
+                  <i className="fa-regular fa-bell" title="Remind me!"></i>
+                  <i className="fa-solid fa-repeat" title="Repeat!"></i>
                 </div>
                 <div className="fll" id="ffl">
                   <button disabled={!formIsvalid}>Add</button>

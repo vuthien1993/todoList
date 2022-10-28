@@ -20,6 +20,17 @@ const nextStep = createSlice({
       state.nextStepArr.splice(index, 1);
       localStorage.setItem("nextStepArr", JSON.stringify(state.nextStepArr));
     },
+    //ham xoa stepidDetail
+    deleteStepDetail(state, { payload }) {
+      const stepDetail = state.nextStepArr.filter(
+        (ele) => ele.idDetail === payload.id
+      );
+      const index = state.nextStepArr.findIndex(
+        (ele) => ele.idDetail === payload.id
+      );
+      state.nextStepArr.splice(index, stepDetail.length);
+      localStorage.setItem("nextStepArr", JSON.stringify(state.nextStepArr));
+    },
     // da hoan thanh
     completed(state, { payload }) {
       const newStep = state.nextStepArr.map((ele) =>

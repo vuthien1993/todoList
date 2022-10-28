@@ -148,6 +148,11 @@
   background: white;
   padding: 10px;
 }
+.inputFlie {
+  width: 50%;
+  border: none;
+  background: white;
+}
 .hoverdiv div:hover {
   color: black;
   background: #f3f2f1;

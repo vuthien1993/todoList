@@ -121,6 +121,7 @@ function MenuRow() {
   const deleteTaskHandler = () => {
     const id = idDetail;
     dispatch(importantAction.deleteTask({ id }));
+    dispatch(nextStepAction.deleteStepDetail({ id }));
     dispatch(importantAction.hidenDetail());
   };
   // xu ly them step detail task  và add xóa my day//////////////////////////////////////
@@ -392,7 +393,15 @@ function MenuRow() {
                   </div>
                   <div className="iconDetail">
                     <i className="fa-solid fa-paperclip" />
-                    <span>Add file</span>
+                    <span>
+                      <input
+                        className="inputFile"
+                        type="file"
+                        id="inputFile"
+                        tabIndex="-1"
+                      />
+                      <label htmlFor="inputFile">Add file</label>
+                    </span>
                   </div>
                 </div>
               </div>
