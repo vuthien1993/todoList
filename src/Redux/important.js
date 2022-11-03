@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
 
 const initialState = {
+  showPlannedWeek: false,
+  showPlannedLater: false,
+  showPlannedTimeOut: false,
+  showPlannedTomorow: false,
+  showPlanned: false,
   isMyday: false,
   isDone: false,
   idTasks: "",
@@ -11,7 +15,6 @@ const initialState = {
   tasksName: "",
   tasksArr,
   showCompleted: false,
-  showPlanned: false,
 };
 const important = createSlice({
   name: "important",
@@ -93,6 +96,29 @@ const important = createSlice({
     },
     showPlanned(state) {
       state.showPlanned = !state.showPlanned;
+    },
+    //check timout
+    checkTimeOut(state, { payload }) {
+      const updateArr = state.tasksArr.map((ele) =>
+        (ele.time < payload.timeNow && ele.month === payload.monthNow) ||
+        ele.month < payload.monthNow
+          ? { ...ele, timeOut: true }
+          : ele
+      );
+      state.tasksArr = updateArr;
+      localStorage.setItem("tasksArr", JSON.stringify(state.tasksArr));
+    },
+    showPlannedTimeOut(state) {
+      state.showPlannedTimeOut = !state.showPlannedTimeOut;
+    },
+    showPlannedTomorow(state) {
+      state.showPlannedTomorow = !state.showPlannedTomorow;
+    },
+    showPlannedLater(state) {
+      state.showPlannedLater = !state.showPlannedLater;
+    },
+    showPlannedWeek(state) {
+      state.showPlannedWeek = !state.showPlannedWeek;
     },
   },
 });

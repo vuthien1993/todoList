@@ -8,6 +8,13 @@
 .textBlue {
   color: blue;
 }
-.textBlue span {
+.textBlue span,
+.later span {
+  padding: 3px;
+}
+.textRed {
+  color: red;
+}
+.textRed span {
   padding: 3px;
 }

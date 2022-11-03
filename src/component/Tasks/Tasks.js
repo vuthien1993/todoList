@@ -4,6 +4,7 @@ import { importantAction } from "../../Redux/important";
 import useInput from "../../hook/use-input";
 import "./Tasks.css";
 function Tasks(props) {
+  const timeNow = new Date().getDate();
   const idDetail = useSelector((state) => state.important.idTasks);
   const [id, setId] = useState("");
   const dispatch = useDispatch();
@@ -91,12 +92,19 @@ function Tasks(props) {
   };
 
   ////////////////khai bao biến tối ưu code jsx ////////////
-  const iconPlanned = (
+  const datePlannedToday = (
     <span className="textBlue">
       <span className="fa-solid fa-calendar-days" />
       <span>Today</span>
     </span>
   );
+  const datePlannedTomorow = (
+    <span className="textBlue">
+      <span className="fa-solid fa-calendar-days" />
+      <span>Tomorow</span>
+    </span>
+  );
+
   const iconMyday = (
     <span>
       <span className="fa-regular fa-sun" />
@@ -182,8 +190,28 @@ function Tasks(props) {
                     </span>
                     <br />
                     <span className="mydayFontsize">
-                      {ele.isPlanned && iconPlanned}
+                      {ele.isPlanned &&
+                        !ele.timeOut &&
+                        ele.time === timeNow &&
+                        datePlannedToday}
+                      {ele.isPlanned &&
+                        !ele.timeOut &&
+                        ele.time === timeNow + 1 &&
+                        datePlannedTomorow}
+                      {ele.isPlanned && !ele.timeOut && ele.time > timeNow + 1 && (
+                        <span className="later">
+                          <span className="fa-solid fa-calendar-days" />
+                          <span>{ele.timed}</span>
+                        </span>
+                      )}
+
                       {ele.isMyday && iconMyday}
+                      {ele.timeOut && (
+                        <span className="textRed">
+                          <span className="fa-solid fa-calendar-days" />
+                          <span> {ele.timed}</span>
+                        </span>
+                      )}
                       {displayStep(ele).stepDetail.length !== 0 &&
                         ele.isMyday === true && (
                           <span>
@@ -274,7 +302,28 @@ function Tasks(props) {
                         <br />
                         <span className="mydayFontsize">
                           {ele.isMyday && iconMyday}
-                          {ele.isPlanned && iconPlanned}
+                          {ele.isPlanned &&
+                            !ele.timeOut &&
+                            ele.time === timeNow &&
+                            datePlannedToday}
+                          {ele.isPlanned &&
+                            !ele.timeOut &&
+                            ele.time === timeNow + 1 &&
+                            datePlannedTomorow}
+                          {ele.isPlanned &&
+                            !ele.timeOut &&
+                            ele.time > timeNow + 1 && (
+                              <span className="later">
+                                <span className="fa-solid fa-calendar-days" />
+                                <span>{ele.timed}</span>
+                              </span>
+                            )}
+                          {ele.timeOut && (
+                            <span className="textRed">
+                              <span className="fa-solid fa-calendar-days" />
+                              <span> {ele.timed}</span>
+                            </span>
+                          )}
                           {displayStep(ele).stepDetail.length !== 0 &&
                             ele.isMyday === true && (
                               <span>

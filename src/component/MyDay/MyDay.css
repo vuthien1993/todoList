@@ -154,10 +154,10 @@
   line-height: 50px;
 }
 .taskName {
-  width: 50%;
+  width: 70%;
 }
 .iconLineStar {
-  width: calc(50% - 48px);
+  width: calc(30% - 48px);
   text-align: right;
   line-height: 50px;
 }

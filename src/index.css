@@ -35,3 +35,6 @@ button:disabled {
 .checked {
   text-decoration: line-through;
 }
+.textB {
+  font-weight: 600;
+}
